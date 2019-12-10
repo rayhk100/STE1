@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1070717415154",
+    "firebase_url": "https://scan-to-eat.firebaseio.com",
+    "project_id": "scan-to-eat",
+    "storage_bucket": "scan-to-eat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070717415154:android:6b21df1263ac9a32792a6b",
+        "android_client_info": {
+          "package_name": "com.example.ste1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070717415154-pb3nabq7nu0k4o74f0s8dlu6e9o9gkpp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFUpEyNT2iTDI_IS5eQ_CVglL_RGKhCHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070717415154-pb3nabq7nu0k4o74f0s8dlu6e9o9gkpp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
