@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "1070717415154",
-    "firebase_url": "https://scan-to-eat.firebaseio.com",
-    "project_id": "scan-to-eat",
-    "storage_bucket": "scan-to-eat.appspot.com"
+    "project_number": "438342465619",
+    "firebase_url": "https://scan-to-eat-5f0fe.firebaseio.com",
+    "project_id": "scan-to-eat-5f0fe",
+    "storage_bucket": "scan-to-eat-5f0fe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1070717415154:android:6b21df1263ac9a32792a6b",
+        "mobilesdk_app_id": "1:438342465619:android:ebf6da63d882e688e06ea6",
         "android_client_info": {
           "package_name": "com.example.ste1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1070717415154-pb3nabq7nu0k4o74f0s8dlu6e9o9gkpp.apps.googleusercontent.com",
+          "client_id": "438342465619-57p4h2bibek380krligjbmbll4i3ic3m.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFUpEyNT2iTDI_IS5eQ_CVglL_RGKhCHY"
+          "current_key": "AIzaSyCY7EGHRZz6uFG7KbHrChDH6zovoxjqmkM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1070717415154-pb3nabq7nu0k4o74f0s8dlu6e9o9gkpp.apps.googleusercontent.com",
+              "client_id": "438342465619-57p4h2bibek380krligjbmbll4i3ic3m.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
