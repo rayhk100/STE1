@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="vm" type="com.example.ste1.ui.scan.ScanViewModel" />
+        <variable name="vm2" type="com.example.ste1.ui.scan.ScanViewModel" />
+        <variable name="code" type="String" />
     </data>
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.scan.ScanFragment">
+    tools:context=".ui.scan.ScanFragment"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{vm.text}"
+            android:text="@{code}"
             android:textAlignment="center"
             android:textSize="20sp"
             tools:layout_editor_absoluteX="8dp"

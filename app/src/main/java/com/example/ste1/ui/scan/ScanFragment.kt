@@ -10,6 +10,9 @@ import androidx.camera.core.ImageProxy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.ste1.R
+import com.example.ste1.databinding.ScanFragmentBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -33,14 +36,25 @@ class ScanFragment : Fragment() {
     companion object {
         fun newInstance() = ScanFragment()
     }
-
+    private lateinit var database: DatabaseReference
     private lateinit var viewModel: ScanViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.scan_fragment, container, false)
+        viewModel =
+        ViewModelProviders.of(this).get(ScanViewModel::class.java)
+        val binding = ScanFragmentBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@ScanFragment
+            vm2 = viewModel
+
+
+        }
+        binding.code =arguments?.getString("code")
+        database = FirebaseDatabase.getInstance().reference
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
