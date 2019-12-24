@@ -24,6 +24,10 @@
             android:id="@+id/nav_scan"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_scan" />
+        <item
+            android:id="@+id/nav_lists"
+            android:icon="@android:drawable/ic_menu_directions"
+            android:title="@string/menu_all_lists" />
     </group>
 
     <item android:title="Communicate">

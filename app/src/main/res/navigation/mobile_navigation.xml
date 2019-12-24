@@ -12,9 +12,13 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_scan"
-            app:destination="@id/nav_scan"
+            app:destination="@+id/nav_scan"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim">
+            <argument
+                android:name="codeOfProduct"
+                android:defaultValue="001" />
+        </action>
     </fragment>
 
 <!--    <fragment-->
@@ -53,17 +57,17 @@
         android:label="@string/menu_scan"
         tools:layout="@layout/scan_fragment" >
         <argument
-            android:name="codeOfProduct"
+            android:name="code"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.example.ste1.ui.login.LoginFragment"
-        android:label="@string/login"
-        tools:layout="@layout/login_fragment" />
-    <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.ste1.ui.profile.ProfileFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/profile_fragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/nav_login"-->
+<!--        android:name="com.example.ste1.ui.login.LoginFragment"-->
+<!--        android:label="@string/login"-->
+<!--        tools:layout="@layout/login_fragment" />-->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_profile"-->
+<!--        android:name="com.example.ste1.ui.profile.ProfileFragment"-->
+<!--        android:label="@string/profile"-->
+<!--        tools:layout="@layout/profile_fragment" />-->
 </navigation>

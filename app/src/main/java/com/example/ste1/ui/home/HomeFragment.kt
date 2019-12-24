@@ -3,13 +3,16 @@ package com.example.ste1.ui.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.ste1.R
 import com.example.ste1.databinding.FragmentHomeBinding
+import com.example.ste1.ui.scan.ScanFragment
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -50,17 +53,32 @@ class HomeFragment : Fragment() {
         //after receive result
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
-                val contents = data?.getStringExtra("SCAN_RESULT")
+               // val contents = data?.getStringExtra("SCAN_RESULT")
+                val contents="001"
                 val format = data?.getStringExtra("SCAN_RESULT_FORMAT")
                 // Handle successful scan
                 //pass string to scan
-                contents
+                Log.d("HomeFragment", "${format}")
+
+                contents?.let { value ->
+                    findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavScan(value))
+                }
+
+
+
+//                findNavController(R.id.nav_host_fragment).navigate(Scan)}
+//                contents
             } else if (resultCode == Activity.RESULT_CANCELED) { // Handle cancel
                 //use vm.test2 show fail on home frag
+
             }
         }
 
 
         //go to "scan" result page
+    }
+    fun onClickButtonS(){
+
+
     }
 }

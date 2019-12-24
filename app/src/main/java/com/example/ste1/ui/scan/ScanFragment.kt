@@ -1,27 +1,21 @@
 package com.example.ste1.ui.scan
 
-import android.R.attr.bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageProxy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.example.ste1.R
 import com.example.ste1.databinding.ScanFragmentBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ScanFragment : Fragment() {
-
-
+val TAG = "ScanFragment"
+    val db = FirebaseFirestore.getInstance()
 //    val options = FirebaseVisionBarcodeDetectorOptions.Builder()
 //        .setBarcodeFormats(
 //            FirebaseVisionBarcode.FORMAT_QR_CODE,
@@ -36,8 +30,9 @@ class ScanFragment : Fragment() {
     companion object {
         fun newInstance() = ScanFragment()
     }
-    private lateinit var database: DatabaseReference
+//    private lateinit var database: DatabaseReference
     private lateinit var viewModel: ScanViewModel
+    private lateinit var binding:ScanFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,15 +47,41 @@ class ScanFragment : Fragment() {
 
 
         }
-        binding.code =arguments?.getString("code")
-        database = FirebaseDatabase.getInstance().reference
+//        binding.code = arguments?.getString("code")
+
+
+//        database = FirebaseDatabase.getInstance().reference
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(ScanViewModel::class.java)
         // TODO: Use the ViewModel
+
+        val docRef = db.collection("Product1").document(arguments?.getString("code")!!)
+        docRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+
+            viewModel?.name?.value=snapshot?.getString("name")
+//            viewModel?.text?.value = snapshot?.getString("ingre")
+            viewModel?.ingre.value = (snapshot?.get("ingre") as List<String>).joinToString(separator = ",") { it -> "${it}" }
+
+//            val source = if (snapshot != null && snapshot.metadata.hasPendingWrites())
+//                "Local"
+//            else
+//                "Server"
+//
+//            if (snapshot != null && snapshot.exists()) {
+//                Log.d(TAG, "$source data: ${snapshot.data}")
+//            } else {
+//                Log.d(TAG, "$source data: null")
+//            }
+        }
     }
   // get firebase data
     //show data
