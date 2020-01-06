@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_nav_scan"
-            app:destination="@+id/nav_scan"
+            app:destination="@id/nav_scan"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim">
             <argument
@@ -46,16 +46,19 @@
 <!--        tools:layout="@layout/fragment_share" />-->
 
 <!--    <fragment-->
-<!--        android:id="@+id/nav_send"-->
-<!--        android:name="com.example.ste1.ui.send.SendFragment"-->
-<!--        android:label="@string/menu_send"-->
-<!--        tools:layout="@layout/fragment_send" />-->
+    <!--        android:id="@+id/nav_send"-->
+    <!--        android:name="com.example.ste1.ui.send.SendFragment"-->
+    <!--        android:label="@string/menu_send"-->
+    <!--        tools:layout="@layout/fragment_send" />-->
+
 
     <fragment
         android:id="@+id/nav_scan"
         android:name="com.example.ste1.ui.scan.ScanFragment"
         android:label="@string/menu_scan"
         tools:layout="@layout/scan_fragment" >
+
+
         <argument
             android:name="code"
             app:argType="string" />

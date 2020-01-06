@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.ste1.databinding.ScanFragmentBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -83,6 +84,10 @@ val TAG = "ScanFragment"
 //            }
         }
     }
+
+//    fun onclickaddtolist( ){
+//        findNavController().navigate(ScanFragmentDirections.actionNavScanToNavLists(arguments?.getString("code")!!))
+//    }
   // get firebase data
     //show data
     // have function to add to list

@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "The Scanning has started"
+     val  product= MutableLiveData<String>().apply {
+        value = ""
     }
-    private val _text2 = MutableLiveData<String>().apply {
-        value = "The Scanning has failed"
+    val  productnu= MutableLiveData<String>().apply {
+        value = ""
     }
-    val text: LiveData<String> = _text
-    val textfail: LiveData<String> = _text2
+//    private val _text2 = MutableLiveData<String>().apply {
+//        value = "The Scanning has failed"
+//    }
+
+//    val textfail: LiveData<String> = _text2
 }
