@@ -9,6 +9,9 @@ class HomeViewModel : ViewModel() {
      val  product= MutableLiveData<String>().apply {
         value = ""
     }
+    val  productin= MutableLiveData<String>().apply {
+        value = ""
+    }
     val  productnu= MutableLiveData<String>().apply {
         value = ""
     }

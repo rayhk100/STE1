@@ -3,28 +3,41 @@ package com.example.ste1
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.ste1.databinding.NavHeaderMainBinding
+import com.example.ste1.ui.header.HeaderViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var headerBinding:NavHeaderMainBinding
+    private lateinit var auth: FirebaseAuth
+    val TAG ="MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        auth = FirebaseAuth.getInstance()
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -35,13 +48,27 @@ class MainActivity : AppCompatActivity() {
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+
+        headerBinding = NavHeaderMainBinding.inflate(layoutInflater, navView, false).apply {
+            lifecycleOwner = this@MainActivity
+            vm = ViewModelProviders.of(this@MainActivity).get(HeaderViewModel::class.java)
+        }
+        headerBinding.headerLinearLayout.setOnClickListener {
+            if (FirebaseAuth.getInstance().currentUser == null) {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
+            } else {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
+            }
+            findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
+        }
+        navView.addHeaderView(headerBinding.root)
         val navController = findNavController(R.id.nav_host_fragment)
        // navView.add
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_scan
+                R.id.nav_home, R.id.nav_profile, R.id.nav_scan
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -72,6 +99,32 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+    fun navigateToLoginOrProfile(view: View) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
+        } else {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
+        }
+        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
+    }
+
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+       // updateUI(currentUser)
+    }
+
+
+
+
+
+
+
+
 
 
 }
+
+

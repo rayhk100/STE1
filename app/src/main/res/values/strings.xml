@@ -19,10 +19,19 @@
 
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="sigup">Sign up</string>
+    <string name="signup">Sign up</string>
     <string name="login">Login</string>
     <string name="logout">Log out</string>
     <string name="profile">Profile</string>
+    <string name="display_name">Display name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="avatar">avatar</string>
+    <string name="capture_image">Capture image</string>
+    <string name="select_image">Select image</string>
+
+    <string name="click_to_login">Click here to login</string>
+
+
 
 
 </resources>

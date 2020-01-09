@@ -20,6 +20,32 @@
                 android:defaultValue="001" />
         </action>
     </fragment>
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.ste1.ui.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_nav_login_to_nav_signup"
+            app:destination="@id/nav_signup"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_nav_login_to_nav_profile"
+            app:destination="@id/nav_profile"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+    android:id="@+id/nav_profile"
+    android:name="com.example.ste1.ui.profile.ProfileFragment"
+    android:label="@string/profile"
+    tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/nav_signup"
+        android:name="com.example.ste1.ui.signup.SignupFragment"
+        android:label="@string/signup"
+        tools:layout="@layout/signup_fragment" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/nav_gallery"-->

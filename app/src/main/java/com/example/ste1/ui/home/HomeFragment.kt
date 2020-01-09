@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.ste1.databinding.FragmentHomeBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +28,8 @@ import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.CameraView
 import com.otaliastudios.cameraview.frame.Frame
 import com.otaliastudios.cameraview.frame.FrameProcessor
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 //import jdk.nashorn.internal.objects.NativeDate.getTime
 import java.io.ByteArrayOutputStream
 
@@ -60,12 +63,17 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@HomeFragment
             vm = homeViewModel
         }
+//        if(FirebaseAuth.getInstance().currentUser==null){
+//           multiAutoCompleteTextView2.visibility =View.GONE
+//           button2.visibility=View.GONE
+//        }
         camera = binding.cameraView;
         camera.setLifecycleOwner(this);
         camera.addCameraListener(object : CameraListener() {
@@ -85,7 +93,7 @@ class HomeFragment : Fragment() {
 
                 Log.d("HomeFragment", "counting")
             } else {
-               // Log.d("HomeFragment", "image")
+                // Log.d("HomeFragment", "image")
                 if (frame.getFormat() === ImageFormat.NV21
                     && frame.getDataClass() === ByteArray::class.java
                 ) {
@@ -122,25 +130,46 @@ class HomeFragment : Fragment() {
                             // Task completed successfully
                             if (barcodes.size > 0) {
                                 Log.d("HomeFragment", "barcode scan success")
-//                      val contents =  barcodes.get(0).rawValue
+                                val contents = barcodes.get(0).rawValue
 
-                                val contents = "001"
+//                                val contents = "001"
 
                                 val docRef = db.collection("Product1")
-                                    .document(contents)
+                                    .document(contents.toString())
                                 docRef.addSnapshotListener { snapshot, e ->
                                     if (e != null) {
                                         Log.w(TAG, "Listen failed.", e)
                                         return@addSnapshotListener
                                     }
 
-                                    Log.d("HomeFragment", "find record")
-                                    homeViewModel.product.value = snapshot?.getString("name")
+                                    snapshot?.exists()?.let {
+                                        if (!it) return@addSnapshotListener
+
+                                        Log.d("HomeFragment", "find record")
+                                        homeViewModel.product.value = snapshot?.getString("name")
 //            viewModel?.text?.value = snapshot?.getString("ingre")
-                                    homeViewModel.productnu.value =
-                                        (snapshot?.get("ingre") as List<String>).joinToString(
-                                            separator = ","
-                                        ) { it -> "${it}" }
+                                        homeViewModel.productin.value =
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }
+
+                                        snapshot?.reference?.collection("nutri")
+                                            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+
+                                                homeViewModel.productnu.value =
+                                                    querySnapshot?.documents?.map { item ->
+                                                        "${item.id}: ${item.getLong("value")} ${item.getString(
+                                                            "unit"
+                                                        )}"
+                                                    }?.joinToString(", \n")
+                                            }
+                                    }
+
+
+//                                    homeViewModel.productnu.value =
+//                                        (snapshot?.get("nutri") as List<Map<String, Int>>).joinToString(
+//                                            separator = ","
+//                                        ) { item -> "${item.keys.joinToString(separator = ",") { "${it}" }"" }
 //                                contents?.let { value ->
 //                                    findNavController().navigate(
 //                                        HomeFragmentDirections.actionNavHomeToNavScan(
@@ -196,7 +225,7 @@ class HomeFragment : Fragment() {
 //        startActivityForResult(intent, 0)
     }
 
-//
+    //
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //
 //        super.onActivityResult(requestCode, resultCode, data)
@@ -220,7 +249,7 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 //    }
-//    fun onClickButtonS(){
+//    fun onClickAddToListButton() {
 //        //onActivityCreated()
 //
 //    }
