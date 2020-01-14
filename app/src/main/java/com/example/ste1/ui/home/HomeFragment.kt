@@ -37,8 +37,9 @@ import java.io.ByteArrayOutputStream
 class HomeFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var camera: CameraView
-    private var lastTime = System.currentTimeMillis()
+//    private lateinit var camera: CameraView
+    private lateinit var binding: FragmentHomeBinding
+            private var lastTime = System.currentTimeMillis()
 
     val TAG = "HomeFragment"
     val db = FirebaseFirestore.getInstance()
@@ -66,21 +67,27 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+        binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@HomeFragment
             vm = homeViewModel
         }
-//        if(FirebaseAuth.getInstance().currentUser==null){
-//           multiAutoCompleteTextView2.visibility =View.GONE
-//           button2.visibility=View.GONE
-//        }
-        camera = binding.cameraView;
-        camera.setLifecycleOwner(this);
-        camera.addCameraListener(object : CameraListener() {
+        binding.button3.visibility = View.GONE
+        if(FirebaseAuth.getInstance().currentUser==null){
+            binding.multiAutoCompleteTextView2.visibility = View.GONE
+            binding.button2.visibility = View.GONE
+        }else{
+            binding.multiAutoCompleteTextView2.visibility = View.VISIBLE
+            binding.button2.visibility = View.VISIBLE
+        }
+        binding.cameraView.apply {
+            setLifecycleOwner(this@HomeFragment);
+            addCameraListener(object : CameraListener() {
 
-        })
+            })
+        }
+
         var counter = 0;
-        camera.addFrameProcessor(FrameProcessor { frame ->
+        binding.cameraView.addFrameProcessor(FrameProcessor { frame ->
 
             Log.d("HomeFragment", "FrameProcessor")
             val newTime: Long = frame.getTime()
@@ -129,22 +136,46 @@ class HomeFragment : Fragment() {
                         .addOnSuccessListener { barcodes ->
                             // Task completed successfully
                             if (barcodes.size > 0) {
-                                Log.d("HomeFragment", "barcode scan success")
+                              //  Log.d("HomeFragment", "barcode scan success")
                                 val contents = barcodes.get(0).rawValue
 
 //                                val contents = "001"
-
+                                Log.d("HomeFragment", "barcode scan success "+ contents.toString())
                                 val docRef = db.collection("Product1")
                                     .document(contents.toString())
+//                                Log.d("HomeFragment", "barcode scan success "+ docRef.path)
+//                                if (docRef.get()==null){
+//                                    homeViewModel.product.value = "The product is not in the database, \n " +
+//                                            "we welcome you to add it to database. "
+//                                    binding.button3.visibility = View.VISIBLE
+//                                }
                                 docRef.addSnapshotListener { snapshot, e ->
                                     if (e != null) {
                                         Log.w(TAG, "Listen failed.", e)
+                                        homeViewModel.product.value = "The product is not in the database, \n " +
+                                                "we welcome you to add it to database. "
+                                        binding.button3.visibility = View.VISIBLE
+//                                        binding.apply {
+//                                            button3.setOnClickListener{
+//                                                    view -> findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavAddnewitem())
+//                                            }
+//                                        }
+
                                         return@addSnapshotListener
                                     }
+                                    if(snapshot==null||!snapshot.exists()){
+                                        Log.w(TAG, "Listen failed.", e)
+                                        homeViewModel.product.value = "The product is not in the database, \n " +
+                                                "we welcome you to add it to database. "
+                                        homeViewModel.productnu.value=""
+                                        homeViewModel.productin.value=""
+                                        binding.button3.visibility = View.VISIBLE
+                                    }
+
 
                                     snapshot?.exists()?.let {
                                         if (!it) return@addSnapshotListener
-
+                                        binding.button3.visibility = View.GONE
                                         Log.d("HomeFragment", "find record")
                                         homeViewModel.product.value = snapshot?.getString("name")
 //            viewModel?.text?.value = snapshot?.getString("ingre")
@@ -185,6 +216,10 @@ class HomeFragment : Fragment() {
                         .addOnFailureListener {
                             // Task failed with an exception
                             // ...
+                            Log.w(TAG, "Listen failed.")
+                            homeViewModel.product.value = "The product is not in the database, \n " +
+                                    "we welcome you to add it to database. "
+//                            binding.button3.visibility = View.VISIBLE
                         }
 
 //            bitmap.toString()
@@ -211,16 +246,19 @@ class HomeFragment : Fragment() {
         for (grantResult in grantResults) {
             valid = valid && grantResult == PackageManager.PERMISSION_GRANTED
         }
-        if (valid && !camera.isOpened()) {
-            camera.open()
+        if (valid && !binding.cameraView.isOpened()) {
+            binding.cameraView.open()
         }
     }
 
     //start scan app
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val intent = Intent("com.google.zxing.client.android.SCAN")
-        intent.setPackage("com.google.zxing.client.android")
+//        val intent = Intent("com.google.zxing.client.android.SCAN")
+//        intent.setPackage("com.google.zxing.client.android")
+        binding.button3.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavAddnewitem())
+        }
 //        intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
 //        startActivityForResult(intent, 0)
     }

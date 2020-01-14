@@ -16,6 +16,7 @@
 
     <string name="menu_scan">Scan</string>
     <string name="menu_all_lists">Lists</string>
+    <string name="menu_additem">Add item</string>
 
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -31,6 +32,32 @@
 
     <string name="click_to_login">Click here to login</string>
 
+    <string name="add_new_item">add item</string>
+    <string name="item_name">Item name</string>
+    <string name="item_ingre">Item ingredient</string>
+    <string name="item_ingre_ene">energy (kcal)</string>
+    <string name="item_ingre_pro">Protein (g)</string>
+    <string name="item_ingre_fat">fat (g)</string>
+    <string name="item_ingre_sfat">S fat (g)</string>
+    <string name="item_ingre_tfat">T fat (g)</string>
+    <string name="item_ingre_carbo">carbo (g)</string>
+    <string name="item_ingre_sugar">Sugar (g)</string>
+    <string name="item_ingre_sod">Sodium (g)</string>
+
+    <string name="item_nutri">Item nutrition</string>
+    <string name="item_code">Item barcode</string>
+
+    <string-array name="list_ingr">
+        <item>Water</item>
+        <item>Egg</item>
+        <item>Sugar</item>
+        <item>Milk</item>
+        <item>Juice</item>
+        <item>Extract</item>
+        <item>Flavouring</item>
+        <item>Acidity regulator</item>
+        <item>sweetener</item>
+    </string-array>
 
 
 

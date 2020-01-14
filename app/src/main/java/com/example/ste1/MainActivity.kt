@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
+
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -60,6 +62,16 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
             }
             findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
+        }
+        FirebaseAuth.getInstance().addAuthStateListener {
+            if (FirebaseAuth.getInstance().currentUser==null) {
+                headerBinding.textViewHeaderTitle.text = resources.getText(R.string.nav_header_title)
+                headerBinding.textViewHeaderDes.text= resources.getText(R.string.click_to_login)
+            } else {
+                Log.d("MainActivity","logined")
+                headerBinding.textViewHeaderTitle.text =FirebaseAuth.getInstance().currentUser?.displayName
+                headerBinding.textViewHeaderDes.text=FirebaseAuth.getInstance().currentUser?.email
+            }
         }
         navView.addHeaderView(headerBinding.root)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -99,22 +111,22 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun navigateToLoginOrProfile(view: View) {
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
-        } else {
-            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
-        }
-        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
-    }
+//    fun navigateToLoginOrProfile(view: View) {
+//        if (FirebaseAuth.getInstance().currentUser == null) {
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
+//        } else {
+//            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
+//        }
+//        findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
+//    }
 
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-       // updateUI(currentUser)
-    }
+//    public override fun onStart() {
+//        super.onStart()
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        val currentUser = auth.currentUser
+//       // updateUI(currentUser)
+//    }
 
 
 
