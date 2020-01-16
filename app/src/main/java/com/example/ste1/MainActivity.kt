@@ -41,6 +41,11 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        if(auth.currentUser==null){
+            auth.signInAnonymously().addOnSuccessListener {
+
+            }
+        }
 
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -56,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             vm = ViewModelProviders.of(this@MainActivity).get(HeaderViewModel::class.java)
         }
         headerBinding.headerLinearLayout.setOnClickListener {
-            if (FirebaseAuth.getInstance().currentUser == null) {
+            if (FirebaseAuth.getInstance().currentUser == null||FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
             } else {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
@@ -64,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
         }
         FirebaseAuth.getInstance().addAuthStateListener {
-            if (FirebaseAuth.getInstance().currentUser==null) {
+            if (FirebaseAuth.getInstance().currentUser==null||FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
                 headerBinding.textViewHeaderTitle.text = resources.getText(R.string.nav_header_title)
                 headerBinding.textViewHeaderDes.text= resources.getText(R.string.click_to_login)
             } else {

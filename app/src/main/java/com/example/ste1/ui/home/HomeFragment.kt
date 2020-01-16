@@ -35,7 +35,7 @@ import java.io.ByteArrayOutputStream
 
 
 class HomeFragment : Fragment() {
-    private lateinit var database: DatabaseReference
+//    private lateinit var database: DatabaseReference
     private lateinit var homeViewModel: HomeViewModel
 //    private lateinit var camera: CameraView
     private lateinit var binding: FragmentHomeBinding
@@ -72,13 +72,17 @@ class HomeFragment : Fragment() {
             vm = homeViewModel
         }
         binding.button3.visibility = View.GONE
-        if(FirebaseAuth.getInstance().currentUser==null){
-            binding.multiAutoCompleteTextView2.visibility = View.GONE
-            binding.button2.visibility = View.GONE
-        }else{
-            binding.multiAutoCompleteTextView2.visibility = View.VISIBLE
-            binding.button2.visibility = View.VISIBLE
+
+        FirebaseAuth.getInstance().addAuthStateListener {
+            if(FirebaseAuth.getInstance().currentUser==null){
+                binding.multiAutoCompleteTextView2.visibility = View.GONE
+                binding.button2.visibility = View.GONE
+            }else{
+                binding.multiAutoCompleteTextView2.visibility = View.VISIBLE
+                binding.button2.visibility = View.VISIBLE
+            }
         }
+
         binding.cameraView.apply {
             setLifecycleOwner(this@HomeFragment);
             addCameraListener(object : CameraListener() {
@@ -150,11 +154,12 @@ class HomeFragment : Fragment() {
 //                                    binding.button3.visibility = View.VISIBLE
 //                                }
                                 docRef.addSnapshotListener { snapshot, e ->
+
                                     if (e != null) {
-                                        Log.w(TAG, "Listen failed.", e)
+                                        Log.w(TAG, "Listen failed. ${e}")
                                         homeViewModel.product.value = "The product is not in the database, \n " +
                                                 "we welcome you to add it to database. "
-                                        binding.button3.visibility = View.VISIBLE
+                                       // binding.button3.visibility = View.VISIBLE
 //                                        binding.apply {
 //                                            button3.setOnClickListener{
 //                                                    view -> findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavAddnewitem())
@@ -163,8 +168,8 @@ class HomeFragment : Fragment() {
 
                                         return@addSnapshotListener
                                     }
-                                    if(snapshot==null||!snapshot.exists()){
-                                        Log.w(TAG, "Listen failed.", e)
+                                    if(snapshot==null||!snapshot?.exists()!!){
+                                        Log.w(TAG, "DB no data")
                                         homeViewModel.product.value = "The product is not in the database, \n " +
                                                 "we welcome you to add it to database. "
                                         homeViewModel.productnu.value=""
@@ -216,9 +221,9 @@ class HomeFragment : Fragment() {
                         .addOnFailureListener {
                             // Task failed with an exception
                             // ...
-                            Log.w(TAG, "Listen failed.")
-                            homeViewModel.product.value = "The product is not in the database, \n " +
-                                    "we welcome you to add it to database. "
+                            //Log.w(TAG, "Listen failed.")
+//                            homeViewModel.product.value = "The product is not in the database, \n " +
+//                                    "we welcome you to add it to database. "
 //                            binding.button3.visibility = View.VISIBLE
                         }
 
@@ -228,7 +233,7 @@ class HomeFragment : Fragment() {
             }
         })
         Log.d("HomeFragment", "continue")
-        database = FirebaseDatabase.getInstance().reference
+//        database = FirebaseDatabase.getInstance().reference
         return binding.root
     }
 

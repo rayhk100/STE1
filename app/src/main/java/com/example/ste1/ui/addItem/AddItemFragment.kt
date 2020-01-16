@@ -67,7 +67,7 @@ class AddItemFragment : Fragment() {
                     Log.d("addItemFragment", "adding")
                 val db = FirebaseFirestore.getInstance()
                     val pathdoc =vm?.code?.value.toString()
-                    val ingrelist = vm?.ingre?.value!!.split(",").map { it.trim() }
+                    val ingrelist = vm?.ingre?.value!!.split(", ").map { it.trim() }.filter { it != "" }
                     val data = hashMapOf("name" to vm?.name?.value,
 
 //                        "ingre" to vm?.ingre?.value
