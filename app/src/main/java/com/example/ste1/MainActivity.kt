@@ -20,19 +20,27 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ste1.databinding.NavHeaderMainBinding
 import com.example.ste1.ui.header.HeaderViewModel
+import com.example.ste1.ui.list.ItemViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var headerBinding:NavHeaderMainBinding
+    private lateinit var headerBinding: NavHeaderMainBinding
     private lateinit var auth: FirebaseAuth
-    val TAG ="MainActivity"
+
+    companion object {
+        val db = FirebaseFirestore.getInstance()
+        val TAG = "MainActivity"
+
+       // val AllProduct = HashMap<String, ItemViewModel>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +49,12 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        if(auth.currentUser==null){
-            auth.signInAnonymously().addOnSuccessListener {
-
-            }
-        }
+//        db.collection("Product1").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+//            AllProduct.clear()
+//            querySnapshot?.documents?.forEach { doc ->
+//                AllProduct.set(doc.reference.path, ItemViewModel())
+//            }
+//        }
 
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -61,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             vm = ViewModelProviders.of(this@MainActivity).get(HeaderViewModel::class.java)
         }
         headerBinding.headerLinearLayout.setOnClickListener {
-            if (FirebaseAuth.getInstance().currentUser == null||FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
+            if (FirebaseAuth.getInstance().currentUser == null || FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
             } else {
                 findNavController(R.id.nav_host_fragment).navigate(R.id.nav_profile)
@@ -69,23 +78,30 @@ class MainActivity : AppCompatActivity() {
             findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawers()
         }
         FirebaseAuth.getInstance().addAuthStateListener {
-            if (FirebaseAuth.getInstance().currentUser==null||FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
-                headerBinding.textViewHeaderTitle.text = resources.getText(R.string.nav_header_title)
-                headerBinding.textViewHeaderDes.text= resources.getText(R.string.click_to_login)
+            if (auth.currentUser == null) {
+                auth.signInAnonymously().addOnSuccessListener {
+
+                }
+            }
+            if (FirebaseAuth.getInstance().currentUser == null || FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {
+                headerBinding.textViewHeaderTitle.text =
+                    resources.getText(R.string.nav_header_title)
+                headerBinding.textViewHeaderDes.text = resources.getText(R.string.click_to_login)
             } else {
-                Log.d("MainActivity","logined")
-                headerBinding.textViewHeaderTitle.text =FirebaseAuth.getInstance().currentUser?.displayName
-                headerBinding.textViewHeaderDes.text=FirebaseAuth.getInstance().currentUser?.email
+                Log.d("MainActivity", "logined")
+                headerBinding.textViewHeaderTitle.text =
+                    FirebaseAuth.getInstance().currentUser?.displayName
+                headerBinding.textViewHeaderDes.text = FirebaseAuth.getInstance().currentUser?.email
             }
         }
         navView.addHeaderView(headerBinding.root)
         val navController = findNavController(R.id.nav_host_fragment)
-       // navView.add
+        // navView.add
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_scan
+                R.id.nav_home,  R.id.nav_list
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -104,18 +120,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.action_settings->{
+        when (item.itemId) {
+            R.id.action_settings -> {
 
 
             }
-
         }
-
         return true
-
-
     }
+
+
 //    fun navigateToLoginOrProfile(view: View) {
 //        if (FirebaseAuth.getInstance().currentUser == null) {
 //            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
@@ -132,14 +146,6 @@ class MainActivity : AppCompatActivity() {
 //        val currentUser = auth.currentUser
 //       // updateUI(currentUser)
 //    }
-
-
-
-
-
-
-
-
 
 
 }

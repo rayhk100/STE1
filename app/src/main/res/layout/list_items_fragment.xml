@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.example.ste1.MainActivity" />
+
+        <variable
+            name="item"
+            type="com.example.ste1.ui.list.ItemViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout  android:id="@+id/constraints"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ToggleButton  android:id="@+id/toggleButton"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorLists"
+            android:text=""
+            android:textOff=" "
+            android:textOn=" "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/item_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/toggleButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_list_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{item.title}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{item.productNum}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+                <Button
+                    android:id="@+id/buttonListA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Button" />
+            </LinearLayout>
+
+            <!--            <TextView-->
+<!--                android:id="@+id/text_list_item_productName"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="8dp"-->
+<!--                android:text="@{item.productName}"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>-->
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
