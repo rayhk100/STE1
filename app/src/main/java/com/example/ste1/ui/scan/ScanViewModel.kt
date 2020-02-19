@@ -21,6 +21,9 @@ class ScanViewModel : ViewModel() {
     val ingre = MutableLiveData<String>().apply {
         value = ""
     }
+    val nutri = MutableLiveData<String>().apply {
+        value = ""
+    }
 
     // TODO: Implement the ViewModel
 }

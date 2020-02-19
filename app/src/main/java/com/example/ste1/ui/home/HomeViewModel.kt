@@ -15,6 +15,9 @@ class HomeViewModel : ViewModel() {
     val  productnu= MutableLiveData<String>().apply {
         value = ""
     }
+    val  reminder= MutableLiveData<String>().apply {
+        value = ""
+    }
 //    private val _text2 = MutableLiveData<String>().apply {
 //        value = "The Scanning has failed"
 //    }

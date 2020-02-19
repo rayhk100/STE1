@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ste1.MainActivity
+import com.example.ste1.MainActivity.Companion.AllProduct
 
 import com.example.ste1.R
 import com.example.ste1.databinding.ListFragmentBinding
@@ -53,8 +54,12 @@ class ListFragment : Fragment() {
 //                Log.d(TAG,it.getString("title"))
                 //show lists' titles
                 val model = ItemViewModel()
-                model.title.value = it?.getString("title")
-                model.productNum.value = (it?.get("item") as List<String>).size.toString()
+              //  model.title.value = it?.getString("title")
+
+//                model.productNum.value = (it?.get("item") as List<String>).size.toString()
+
+                model.title.value = AllProduct[it?.getString("item")].toString()
+//                model.AddDate.value =it?.getString("date")
 
                 binding.vm!!.items.add(model)
 
@@ -86,11 +91,11 @@ class ListFragment : Fragment() {
         }
 
         //button for creating new list
-        binding.apply {
-            createList.setOnClickListener {
-                CollRef.document().set(vm!!.newList)
-            }
-        }
+//        binding.apply {
+//            createList.setOnClickListener {
+//                CollRef.document().set(vm!!.newList)
+//            }
+//        }
 
 
        // binding.vm.items.add(model)

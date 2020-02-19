@@ -72,6 +72,7 @@ val TAG = "ScanFragment"
 //            viewModel?.text?.value = snapshot?.getString("ingre")
             viewModel?.ingre.value = (snapshot?.get("ingre") as List<String>).joinToString(separator = ",") { it -> "${it}" }
 
+//            viewModel?.nutri.value = snapshot?.get("nutri")
 //            val source = if (snapshot != null && snapshot.metadata.hasPendingWrites())
 //                "Local"
 //            else

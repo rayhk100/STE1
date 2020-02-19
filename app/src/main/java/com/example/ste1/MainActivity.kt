@@ -27,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val TAG = "MainActivity"
 
-       // val AllProduct = HashMap<String, ItemViewModel>()
+        val AllProduct = HashMap<String, ItemViewModel>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +50,14 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-//        db.collection("Product1").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//            AllProduct.clear()
-//            querySnapshot?.documents?.forEach { doc ->
-//                AllProduct.set(doc.reference.path, ItemViewModel())
-//            }
-//        }
+        db.collection("Product1").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            AllProduct.clear()
+            querySnapshot?.documents?.forEach { doc ->
+                AllProduct.set(doc.reference.path, ItemViewModel())
+            }
+        }
+
+        AndroidThreeTen.init(this)
 
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -79,8 +82,8 @@ class MainActivity : AppCompatActivity() {
         }
         FirebaseAuth.getInstance().addAuthStateListener {
             if (auth.currentUser == null) {
-                auth.signInAnonymously().addOnSuccessListener {
-
+                auth.signInAnonymously().addOnSuccessListener {result ->
+//                Log.d("Main_Anony",result.toString())
                 }
             }
             if (FirebaseAuth.getInstance().currentUser == null || FirebaseAuth.getInstance().currentUser?.isAnonymous!!) {

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ItemViewModel() : ViewModel() {
-    val  productNum= MutableLiveData<String>().apply {
+    val  AddDate= MutableLiveData<String>().apply {
         value = ""
     }
     val  title= MutableLiveData<String>().apply {
@@ -13,5 +13,8 @@ class ItemViewModel() : ViewModel() {
 //    val  productNutri= MutableLiveData<String>().apply {
 //        value = ""
 //    }
+    val code=MutableLiveData<String>().apply {
+    value = ""
+}
 
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.MultiAutoCompleteTextView
+import androidx.navigation.fragment.findNavController
 import com.example.ste1.R
 
 import com.example.ste1.databinding.AddItemFragmentBinding
@@ -166,6 +167,7 @@ class AddItemFragment : Fragment() {
 //                }
                 // TODO: Use the ViewModel
 
+                    findNavController().navigate(AddItemFragmentDirections.actionNavAddnewitemToNavHome())
             }
             }
 

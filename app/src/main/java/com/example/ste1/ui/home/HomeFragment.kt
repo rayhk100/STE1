@@ -24,6 +24,7 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.CameraView
 import com.otaliastudios.cameraview.frame.Frame
@@ -32,6 +33,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 //import jdk.nashorn.internal.objects.NativeDate.getTime
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class HomeFragment : Fragment() {
@@ -40,6 +45,7 @@ class HomeFragment : Fragment() {
 //    private lateinit var camera: CameraView
     private lateinit var binding: FragmentHomeBinding
             private var lastTime = System.currentTimeMillis()
+
 
     val TAG = "HomeFragment"
     val db = FirebaseFirestore.getInstance()
@@ -64,24 +70,29 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         setHasOptionsMenu(true)
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@HomeFragment
             vm = homeViewModel
+
+
         }
         binding.button3.visibility = View.GONE
+        binding.buttonCountToList.isClickable = false
 
-        FirebaseAuth.getInstance().addAuthStateListener {
-            if(FirebaseAuth.getInstance().currentUser==null){
-                binding.multiAutoCompleteTextView2.visibility = View.GONE
-                binding.button2.visibility = View.GONE
-            }else{
-                binding.multiAutoCompleteTextView2.visibility = View.VISIBLE
-                binding.button2.visibility = View.VISIBLE
-            }
-        }
+        //unused if user account , the add to list function on
+//        FirebaseAuth.getInstance().addAuthStateListener {
+//            if(FirebaseAuth.getInstance().currentUser==null){
+//                binding.spinner1.visibility = View.GONE
+//                binding.button2.visibility = View.GONE
+//            }else{
+//                binding.spinner1.visibility = View.VISIBLE
+//                binding.button2.visibility = View.VISIBLE
+//            }
+//        }
 
         binding.cameraView.apply {
             setLifecycleOwner(this@HomeFragment);
@@ -166,6 +177,7 @@ class HomeFragment : Fragment() {
 //                                            }
 //                                        }
 
+                                        binding.buttonCountToList.isClickable = false
                                         return@addSnapshotListener
                                     }
                                     if(snapshot==null||!snapshot?.exists()!!){
@@ -174,19 +186,22 @@ class HomeFragment : Fragment() {
                                                 "we welcome you to add it to database. "
                                         homeViewModel.productnu.value=""
                                         homeViewModel.productin.value=""
+                                        homeViewModel.reminder.value=""
                                         binding.button3.visibility = View.VISIBLE
+                                        binding.buttonCountToList.isClickable = false
                                     }
 
 
                                     snapshot?.exists()?.let {
                                         if (!it) return@addSnapshotListener
                                         binding.button3.visibility = View.GONE
+                                        homeViewModel.reminder.value=""
                                         Log.d("HomeFragment", "find record")
                                         homeViewModel.product.value = snapshot?.getString("name")
 //            viewModel?.text?.value = snapshot?.getString("ingre")
                                         homeViewModel.productin.value =
                                             (snapshot?.get("ingre") as List<String>).joinToString(
-                                                separator = ","
+                                                separator = ", "
                                             ) { it -> "${it}" }
 
                                         snapshot?.reference?.collection("nutri")
@@ -194,11 +209,78 @@ class HomeFragment : Fragment() {
 
                                                 homeViewModel.productnu.value =
                                                     querySnapshot?.documents?.map { item ->
-                                                        "${item.id}: ${item.getLong("value")} ${item.getString(
-                                                            "unit"
-                                                        )}"
+                                                        "${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
+                                                       // Log.d("HomeFragment",item.id)
+
                                                     }?.joinToString(", \n")
+
+
+                                                //                                                        if(item.id=="sugar"&&item.getLong("value")!!.compareTo(10.0)>1){
+//                                                            homeViewModel.reminder.value="This product has high amount of sugar. \n"
+//                                                        }
                                             }
+
+
+
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                              separator = ","
+                                          ) { it -> "${it}" }.contains("milk")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Milk")){
+                                          homeViewModel.reminder.value="Ingredients may cause allergy:\n"
+
+
+                                        }
+                                            if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("milk")||
+                                                (snapshot?.get("ingre") as List<String>).joinToString(
+                                                    separator = ","
+                                                ) { it -> "${it}" }.contains("Milk")){
+                                                homeViewModel.reminder.value=homeViewModel.reminder.value.plus("milk")
+                                            }
+
+
+
+
+
+
+
+
+
+                                        binding.buttonCountToList.isClickable = true
+
+
+                                        binding.buttonCountToList.setOnClickListener {
+
+                                            if(!homeViewModel.productnu.equals("")&&!homeViewModel.productin.equals(""))
+                                            {
+                                                Log.d(TAG,"adding item to user list")
+
+
+//                                                val Current = DateTimeFormatter.ISO_INSTANT.format(
+//                                                Instant.now())
+                                                val Current = LocalDateTime.now()
+
+
+                                                val code = contents
+                                                val data = hashMapOf<String, Any>(
+                                                    "date" to Current,
+                                                    "item" to "/Product1/"+code
+                                                )
+                                               if(db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())!=null){
+                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                                                       .collection("list").add(data)
+                                               }else{
+                                                   db.collection("User").add(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                                                   .collection("list").add(data)}
+
+
+                                            }
+
+                                        }
                                     }
 
 
@@ -261,11 +343,23 @@ class HomeFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 //        val intent = Intent("com.google.zxing.client.android.SCAN")
 //        intent.setPackage("com.google.zxing.client.android")
+//        intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
+////        startActivityForResult(intent, 0)
+
         binding.button3.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionNavHomeToNavAddnewitem())
         }
-//        intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
-//        startActivityForResult(intent, 0)
+
+
+
+//        if(db.collection("User").document(FirebaseAuth.getInstance()).collection("list")){
+//
+//        }
+
+
+
+
+
     }
 
     //
