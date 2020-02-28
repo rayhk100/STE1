@@ -11,9 +11,64 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding
 
 class ListViewModel : ViewModel() {
     // TODO: Implement the ViewModel
-    val newList = MutableLiveData<String>().apply {
+    val standard = MutableLiveData<String>().apply {
         value = ""
     }
+    val standardEn = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardPr = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardFa = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardSF = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardTF = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardCa = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardSu = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val standardSo = MutableLiveData<String>().apply {
+        value = ""
+    }
+
+    val Total = MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalEn= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalPr= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalFa= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalSF=MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalTF= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalCa= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalSu= MutableLiveData<String>().apply {
+        value = ""
+    }
+    val TotalSo= MutableLiveData<String>().apply {
+        value = ""
+    }
+
+
+
 //    val itemBinding = MutableLiveData<String>().apply {
 //        value = ""
 //    }

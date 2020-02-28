@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="vmProd" type="com.example.ste1.ui.detail.DetailItemViewModel" />
+    </data>
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+
+                <ScrollView
+                    android:id="@+id/scrollView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/productName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@{vmProd.product}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                        <TextView
+                            android:id="@+id/productNu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@{vmProd.productnu}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        <TextView
+                            android:id="@+id/productIn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@{vmProd.productin}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        <TextView
+                            android:id="@+id/productRe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@{vmProd.reminder}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+
+
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+   </layout>

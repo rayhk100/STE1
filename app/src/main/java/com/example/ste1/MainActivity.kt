@@ -11,6 +11,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.BaseObservable
+import androidx.databinding.ObservableList
+import androidx.databinding.ObservableMap
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -19,6 +22,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ste1.databinding.NavHeaderMainBinding
+import com.example.ste1.ui.detail.DetailItemViewModel
 import com.example.ste1.ui.header.HeaderViewModel
 import com.example.ste1.ui.list.ItemViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jakewharton.threetenabp.AndroidThreeTen
+import kotlinx.android.synthetic.main.detail_item_fragment.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +45,18 @@ class MainActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val TAG = "MainActivity"
 
-        val AllProduct = HashMap<String, ItemViewModel>()
+        val AllProduct = HashMap<String, DetailItemViewModel>()
+        val AllProduct2 = HashMap<String, Product>()
+//        val AllProduct2 = ObservableMap<String, DetailItemViewModel>()
+//   val AllProduct3 = AllProduct:ObservableList<DetailItemViewModel>(){}
+
+//            val AllProduct3 =BaseObservable()
+
+
+
+
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +66,97 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
+        //val product = db.collection("Product1")
         db.collection("Product1").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
             AllProduct.clear()
+            AllProduct2.clear()
+
+
             querySnapshot?.documents?.forEach { doc ->
-                AllProduct.set(doc.reference.path, ItemViewModel())
+//                HashMaping
+                val nutri= db.collection("Product1").document(doc.id).collection("nutri")
+
+                AllProduct.set(doc.reference.path, DetailItemViewModel()).apply{
+                AllProduct[doc.reference.path]!!.product.value=doc.getString("name").toString()
+
+                    nutri.document("energy").addSnapshotListener(){
+                        documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.energy.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "energy"+AllProduct[doc.reference.path]!!.energy.value.toString())
+                    }
+                    nutri.document("protein").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.protein.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "protein"+AllProduct[doc.reference.path]!!.protein.value.toString())
+                    }
+                    nutri.document("fat").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.sfat.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "fat"+AllProduct[doc.reference.path]!!.fat.value.toString())
+                    }
+                    nutri.document("S fat").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.sfat.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "sfat"+AllProduct[doc.reference.path]!!.sfat.value.toString())
+                    }
+                    nutri.document("T fat").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.tfat.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "tfat"+AllProduct[doc.reference.path]!!.tfat.value.toString())
+                    }
+                    nutri.document("carbo").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.carbo.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "carbo"+AllProduct[doc.reference.path]!!.carbo.value.toString())
+                    }
+                    nutri.document("sugar").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.sugar.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "sugar"+AllProduct[doc.reference.path]!!.sugar.value.toString())
+                    }
+                    nutri.document("sodium").addSnapshotListener(){
+                            documentSnapshot, firebaseFirestoreException ->
+                        AllProduct[doc.reference.path]!!.sodium.value = documentSnapshot?.getDouble("value")
+//                        Log.d("Main_ALLN", documentSnapshot?.getDouble("value").toString())
+                        Log.d("Main_ALLN", "sodium"+AllProduct[doc.reference.path]!!.sodium.value.toString())
+                    }
+
+
             }
+
+
+                db.collection("Product1").document(doc.id).collection("nutri").addSnapshotListener { snapshot, firebaseFirestoreException ->
+                    val product = Product(doc.getString("name")!!,
+
+
+                            snapshot?.documents?.map { item ->item.getDouble("value")!!}!!  )
+
+
+                    AllProduct2.set(doc.reference.path,product)
+//                    Log.d("Main_ALL1",AllProduct2[doc.reference.path]!!._productName)
+//                    Log.d("Main_ALL1",AllProduct2[doc.reference.path]!!.nutri.toString())
+
+                }
+
+
+
+
+
+//                Log.d("Main_ALL",doc.reference.path)
+//                Log.d("Main_ALL",AllProduct[doc.reference.path]!!.product.value.toString())
+            }
+
+
+
+
         }
 
         AndroidThreeTen.init(this)
@@ -131,6 +233,7 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+
 
 
 //    fun navigateToLoginOrProfile(view: View) {

@@ -109,6 +109,21 @@
         android:name="com.example.ste1.ui.list.ListFragment"
         android:label="@string/menu_list"
         tools:layout="@layout/list_fragment" >
+        <action
+            android:id="@+id/action_nav_list_to_nav_detail"
+            app:destination="@id/nav_detail"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_detail"
+        android:name="com.example.ste1.ui.detail.detailItemFragment"
+        android:label="@string/menu_detail"
+        tools:layout="@layout/detail_item_fragment" >
+
+        <argument
+            android:name="code"
+            app:argType="string" />
     </fragment>
     <!--    <fragment-->
 <!--        android:id="@+id/nav_login"-->

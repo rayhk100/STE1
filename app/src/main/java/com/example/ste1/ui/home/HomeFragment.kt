@@ -19,6 +19,7 @@ import com.example.ste1.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
@@ -223,11 +224,35 @@ class HomeFragment : Fragment() {
 
 
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
-                                              separator = ","
-                                          ) { it -> "${it}" }.contains("milk")||
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("milk") ||
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
-                                            ) { it -> "${it}" }.contains("Milk")){
+                                            ) { it -> "${it}" }.contains("Milk") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("egg") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Egg")  ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("wheat") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Wheat") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("soy") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Soy") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("barley") ||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Barley")){
                                           homeViewModel.reminder.value="Ingredients may cause allergy:\n"
 
 
@@ -240,6 +265,48 @@ class HomeFragment : Fragment() {
                                                 ) { it -> "${it}" }.contains("Milk")){
                                                 homeViewModel.reminder.value=homeViewModel.reminder.value.plus("milk")
                                             }
+
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("egg")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Egg")){
+                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("egg")
+                                        }
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("wheat")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Wheat")){
+                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("wheat")
+                                        }
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("soy")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Soy")){
+                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("soy")
+                                        }
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("nut")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Nut")){
+                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("nut")
+                                        }
+                                        if ((snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("barley")||
+                                            (snapshot?.get("ingre") as List<String>).joinToString(
+                                                separator = ","
+                                            ) { it -> "${it}" }.contains("Barley")){
+                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("barley")
+                                        }
+
 
 
 
@@ -263,19 +330,27 @@ class HomeFragment : Fragment() {
 //                                                Instant.now())
                                                 val Current = LocalDateTime.now()
 
-
+                                                val nameI = homeViewModel.productnu.value!!
                                                 val code = contents
                                                 val data = hashMapOf<String, Any>(
-                                                    "date" to Current,
-                                                    "item" to "/Product1/"+code
+//                                                    "name" to nameI,
+                                                    //"date" to Current,
+                                                    "updateAt" to FieldValue.serverTimestamp(),
+                                                    "item" to code!!
                                                 )
-                                               if(db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())!=null){
-                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                                               //if(FirebaseAuth.getInstance().currentUser!=null){
+                                                   val doc=db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
                                                        .collection("list").add(data)
-                                               }else{
-                                                   db.collection("User").add(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                                                   .collection("list").add(data)}
+
+
+//                                                    doc.addOnSuccessListener {docRef -> db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+//                                                        .collection("list").document(docRef.id).collection("date").add(Current)
+//
+//                                                    }
+//                                               }else{
+//                                                   db.collection("User").add(FirebaseAuth.getInstance().currentUser?.uid.toString())
+//                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+//                                                   .collection("list").add(data)}
 
 
                                             }

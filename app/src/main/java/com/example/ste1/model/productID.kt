@@ -1,4 +1,5 @@
 data class productID(
-    val id:String
+    val pid:String
+
 
 )
