@@ -15,8 +15,11 @@ import com.example.ste1.Product
 import com.example.ste1.R
 import com.example.ste1.databinding.ListFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail_item_fragment.*
+import java.time.LocalDateTime
+import java.util.*
 
 class ListFragment : Fragment() {
     val TAG = "ListFragment"
@@ -55,6 +58,12 @@ class ListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         val CollRef = db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString()).collection("list")
 //        val itemRef =db.collection("Product1")
+        //Log.d(TAG+"test",CollRef.orderBy("updateAt").startAt(LocalDateTime.now().dayOfYear).toString())
+        val time=LocalDateTime.now().toLocalDate()
+
+
+        Log.d(TAG+"test",time.toString())
+//        CollRef.orderBy("updateAt").addSnapshotListener { snapshot, e ->
         CollRef.orderBy("updateAt").addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -72,7 +81,7 @@ class ListFragment : Fragment() {
 //                model.productNum.value = (it?.get("item") as List<String>).size.toString()
 
 //                model.title.value = itemRef.document(it?.getString("item")).get("name".).toString()
-                Log.d("List_Item_Title", AllProduct["Product1/"+it?.getString("item")]!!.product.value)
+//                Log.d("List_Item_Title", AllProduct["Product1/"+it?.getString("item")]!!.product.value)
 
 
                 model.title.value = AllProduct["Product1/"+it?.getString("item")]!!.product.value
@@ -80,16 +89,20 @@ class ListFragment : Fragment() {
                 Log.d("List_Item_Title", it?.getTimestamp("updateAt").toString())
                 if(it?.getTimestamp("updateAt")!=null){model.AddDate.value = it?.getTimestamp("updateAt")?.toDate().toString()}
 //
-                Totalsf=Totalsf.plus(AllProduct["Product1/"+it?.getString("item")]!!.sfat.value!!)
-                Totaltf=Totaltf.plus(AllProduct["Product1/"+it?.getString("item")]!!.tfat.value!!)
-                Totalca=Totalca.plus(AllProduct["Product1/"+it?.getString("item")]!!.carbo.value!!)
-                Totalen=Totalen.plus(AllProduct["Product1/"+it?.getString("item")]!!.energy.value!!)
-                Totalfa=Totalfa.plus(AllProduct["Product1/"+it?.getString("item")]!!.fat.value!!)
-                Totalpr=Totalpr.plus(AllProduct["Product1/"+it?.getString("item")]!!.protein.value!!)
-                Totalso=Totalso.plus(AllProduct["Product1/"+it?.getString("item")]!!.sodium.value!!)
-                Totalsu=Totalsu.plus(AllProduct["Product1/"+it?.getString("item")]!!.sugar.value!!)
-                Log.d(TAG+"Test",Totalca.toString())
-                binding.vm!!.items.add(model)
+
+//                Log.d(TAG+"Test",Totalca.toString())
+                if(it?.getString("timeAt").toString().contains(time.toString()))
+                {
+                    Totalsf=Totalsf.plus(AllProduct["Product1/"+it?.getString("item")]!!.sfat.value!!)
+                    Totaltf=Totaltf.plus(AllProduct["Product1/"+it?.getString("item")]!!.tfat.value!!)
+                    Totalca=Totalca.plus(AllProduct["Product1/"+it?.getString("item")]!!.carbo.value!!)
+                    Totalen=Totalen.plus(AllProduct["Product1/"+it?.getString("item")]!!.energy.value!!)
+                    Totalfa=Totalfa.plus(AllProduct["Product1/"+it?.getString("item")]!!.fat.value!!)
+                    Totalpr=Totalpr.plus(AllProduct["Product1/"+it?.getString("item")]!!.protein.value!!)
+                    Totalso=Totalso.plus(AllProduct["Product1/"+it?.getString("item")]!!.sodium.value!!)
+                    Totalsu=Totalsu.plus(AllProduct["Product1/"+it?.getString("item")]!!.sugar.value!!)
+                    
+                    binding.vm!!.items.add(model)}
 
                 //check titles
                // Log.d(TAG,it.getString("title").toString())
@@ -116,7 +129,7 @@ class ListFragment : Fragment() {
 
 
             }
-                    Log.d(TAG+"Test2",Totalca.toString())
+//                    Log.d(TAG+"Test2",Totalca.toString())
             viewModel.TotalCa.value= "carbo: "+Totalca.toString()+" g"
             viewModel.TotalEn.value="energy: "+Totalen.toString()+" kcal"
             viewModel.TotalFa.value= "fat: "+Totalfa.toString()+" g"

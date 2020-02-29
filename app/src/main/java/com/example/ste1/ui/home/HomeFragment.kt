@@ -222,7 +222,8 @@ class HomeFragment : Fragment() {
                                             }
 
 
-
+                                        var reminder=""
+                                        var reminderIN= listOf<String>()
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("milk") ||
@@ -253,7 +254,8 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Barley")){
-                                          homeViewModel.reminder.value="Ingredients may cause allergy:\n"
+//                                          homeViewModel.reminder.value="Ingredients may cause allergy:\n"
+                                            reminder="Ingredients may cause allergy:\n"
 
 
                                         }
@@ -263,7 +265,8 @@ class HomeFragment : Fragment() {
                                                 (snapshot?.get("ingre") as List<String>).joinToString(
                                                     separator = ","
                                                 ) { it -> "${it}" }.contains("Milk")){
-                                                homeViewModel.reminder.value=homeViewModel.reminder.value.plus("milk")
+                                               // homeViewModel.reminder.value=homeViewModel.reminder.value.plus("milk")
+                                                reminderIN=reminderIN.plus("milk")
                                             }
 
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
@@ -272,7 +275,8 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Egg")){
-                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("egg")
+                                            //homeViewModel.reminder.value=homeViewModel.reminder.value.plus("egg")
+                                            reminderIN=reminderIN.plus("egg")
                                         }
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
@@ -280,7 +284,8 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Wheat")){
-                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("wheat")
+                                           // homeViewModel.reminder.value=homeViewModel.reminder.value.plus("wheat")
+                                            reminderIN=reminderIN.plus("wheat")
                                         }
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
@@ -288,7 +293,8 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Soy")){
-                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("soy")
+//                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("soy")//
+                                            reminderIN=reminderIN.plus("soy")
                                         }
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
@@ -296,7 +302,8 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Nut")){
-                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("nut")
+//                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("nut")
+                                            reminderIN=reminderIN.plus("nut")
                                         }
                                         if ((snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
@@ -304,8 +311,11 @@ class HomeFragment : Fragment() {
                                             (snapshot?.get("ingre") as List<String>).joinToString(
                                                 separator = ","
                                             ) { it -> "${it}" }.contains("Barley")){
-                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("barley")
+//                                            homeViewModel.reminder.value=homeViewModel.reminder.value.plus("barley")
+                                            reminderIN=reminderIN.plus("barley")
                                         }
+
+                                        homeViewModel.reminder.value=reminder+" "+reminderIN.joinToString(separator = ", "){ it -> "${it}" }
 
 
 
@@ -336,7 +346,9 @@ class HomeFragment : Fragment() {
 //                                                    "name" to nameI,
                                                     //"date" to Current,
                                                     "updateAt" to FieldValue.serverTimestamp(),
-                                                    "item" to code!!
+                                                    "item" to code!!,
+                                                    "timeAt" to DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(Current)
+//                                                    "timeAt" to Current
                                                 )
                                                //if(FirebaseAuth.getInstance().currentUser!=null){
                                                    val doc=db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
