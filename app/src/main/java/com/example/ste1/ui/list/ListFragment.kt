@@ -92,7 +92,7 @@ class ListFragment : Fragment() {
 
 //                Log.d(TAG+"Test",Totalca.toString())
                 if(it?.getString("timeAt").toString().contains(time.toString()))
-                {
+                {  
                     Totalsf=Totalsf.plus(AllProduct["Product1/"+it?.getString("item")]!!.sfat.value!!)
                     Totaltf=Totaltf.plus(AllProduct["Product1/"+it?.getString("item")]!!.tfat.value!!)
                     Totalca=Totalca.plus(AllProduct["Product1/"+it?.getString("item")]!!.carbo.value!!)
