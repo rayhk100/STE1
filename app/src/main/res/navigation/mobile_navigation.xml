@@ -116,6 +116,12 @@
             app:exitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
+        android:id="@+id/nav_chart"
+        android:name="com.example.ste1.ui.chart.ChartFragment"
+        android:label="@string/menu_chart"
+        tools:layout="@layout/chart_fragment" >
+    </fragment>
+    <fragment
         android:id="@+id/nav_detail"
         android:name="com.example.ste1.ui.detail.detailItemFragment"
         android:label="@string/menu_detail"

@@ -11,59 +11,43 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_lists_item"
+        android:id="@+id/fragment_page_chart"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:minHeight="44dp">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-<!--            <EditText-->
-<!--        android:id="@+id/editText9"-->
-<!--        android:layout_width="321dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:text="@{vm.newList}" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/createList"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="Create List" />-->
-        </LinearLayout>
-
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:itemBinding="@{vm.itemBinding}"
             app:items="@{vm.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+            app:layout_constraintTop_toTopOf="parent">
 
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/productList">
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="#03A9F4"
                 android:orientation="vertical">
 
                 <TextView
@@ -71,29 +55,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{vm.Standard}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <TextView
                     android:id="@+id/textView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{vm.Total}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
         </HorizontalScrollView>
-        <!--            <androidx.recyclerview.widget.RecyclerView  android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginStart="8dp"-->
-        <!--                android:layout_marginTop="8dp"-->
-        <!--                android:layout_marginEnd="16dp"-->
-        <!--                android:layout_marginBottom="8dp"-->
-        <!--                app:items="@{vm.items}"-->
-        <!--                app:itemBinding="@{vm.itemBinding}"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/text_route_title"-->
-        <!--                app:layout_constraintTop_toTopOf="parent"-->
-        <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

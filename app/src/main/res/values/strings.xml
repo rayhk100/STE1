@@ -48,6 +48,8 @@
     <string name="item_nutri">Item nutrition</string>
     <string name="item_code">Item barcode</string>
 
+    <string name="menu_chart">Analysis chart</string>
+
     <string-array name="list_ingr">
         <item>Water</item>
         <item>Egg</item>

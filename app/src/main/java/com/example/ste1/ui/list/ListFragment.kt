@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail_item_fragment.*
+import java.sql.Timestamp
 import java.time.LocalDateTime
 import java.util.*
 
@@ -60,9 +61,13 @@ class ListFragment : Fragment() {
 //        val itemRef =db.collection("Product1")
         //Log.d(TAG+"test",CollRef.orderBy("updateAt").startAt(LocalDateTime.now().dayOfYear).toString())
         val time=LocalDateTime.now().toLocalDate()
+        val timeNow=Timestamp(LocalDateTime.now().year-1900,LocalDateTime.now().month.value-1,LocalDateTime.now().dayOfMonth
+                            ,0,0,0,0)
 
 
-        Log.d(TAG+"test",time.toString())
+
+       // Log.d(TAG+"test",time.toString())
+      //  Log.d(TAG+"test",timeNow.toString())
 //        CollRef.orderBy("updateAt").addSnapshotListener { snapshot, e ->
         CollRef.orderBy("updateAt").addSnapshotListener { snapshot, e ->
             if (e != null) {
@@ -86,12 +91,16 @@ class ListFragment : Fragment() {
 
                 model.title.value = AllProduct["Product1/"+it?.getString("item")]!!.product.value
 
-                Log.d("List_Item_Title", it?.getTimestamp("updateAt").toString())
+                Log.d("List_Item_Title", it?.getTimestamp("updateAt")?.toDate()?.time?.compareTo(timeNow.time).toString())
+
+
                 if(it?.getTimestamp("updateAt")!=null){model.AddDate.value = it?.getTimestamp("updateAt")?.toDate().toString()}
 //
+                val testDate=it?.getTimestamp("updateAt")
 
-//                Log.d(TAG+"Test",Totalca.toString())
-                if(it?.getString("timeAt").toString().contains(time.toString()))
+                Log.d(TAG+"_time test",testDate?.toDate()?.time.toString())
+//                if(it?.getString("timeAt").toString().contains(time.toString()))
+                    if(testDate!=null&&testDate?.toDate()?.time?.compareTo(timeNow.time)>-1)
                 {  
                     Totalsf=Totalsf.plus(AllProduct["Product1/"+it?.getString("item")]!!.sfat.value!!)
                     Totaltf=Totaltf.plus(AllProduct["Product1/"+it?.getString("item")]!!.tfat.value!!)

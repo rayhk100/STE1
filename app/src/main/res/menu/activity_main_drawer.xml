@@ -24,6 +24,10 @@
                     android:id="@+id/nav_list"
                     android:icon="@drawable/ic_menu_slideshow"
                     android:title="@string/menu_list" />
+        <item
+            android:id="@+id/nav_chart"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_chart" />
 <!--        <item-->
 <!--            android:id="@+id/nav_scan"-->
 <!--            android:icon="@drawable/ic_menu_gallery"-->
