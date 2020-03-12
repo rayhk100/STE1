@@ -25,6 +25,7 @@ import com.example.ste1.databinding.NavHeaderMainBinding
 import com.example.ste1.ui.detail.DetailItemViewModel
 import com.example.ste1.ui.header.HeaderViewModel
 import com.example.ste1.ui.list.ItemViewModel
+import com.example.ste1.ui.list.ListFragmentDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -227,8 +228,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-
-
             }
         }
         return true
@@ -253,6 +252,10 @@ class MainActivity : AppCompatActivity() {
 //       // updateUI(currentUser)
 //    }
 
+    fun clickHandler(view:View,code:String) {
+        Log.d("Main_click",code)
+        findNavController(R.id.nav_host_fragment).navigate(ListFragmentDirections.actionNavListToNavDetail(code))
+    }
 
 }
 

@@ -92,7 +92,7 @@ class ListFragment : Fragment() {
                 model.title.value = AllProduct["Product1/"+it?.getString("item")]!!.product.value
 
                 Log.d("List_Item_Title", it?.getTimestamp("updateAt")?.toDate()?.time?.compareTo(timeNow.time).toString())
-
+                model.code.value=it?.getString("item")
 
                 if(it?.getTimestamp("updateAt")!=null){model.AddDate.value = it?.getTimestamp("updateAt")?.toDate().toString()}
 //
@@ -110,7 +110,7 @@ class ListFragment : Fragment() {
                     Totalpr=Totalpr.plus(AllProduct["Product1/"+it?.getString("item")]!!.protein.value!!)
                     Totalso=Totalso.plus(AllProduct["Product1/"+it?.getString("item")]!!.sodium.value!!)
                     Totalsu=Totalsu.plus(AllProduct["Product1/"+it?.getString("item")]!!.sugar.value!!)
-                    
+
                     binding.vm!!.items.add(model)}
 
                 //check titles
@@ -139,30 +139,54 @@ class ListFragment : Fragment() {
 
             }
 //                    Log.d(TAG+"Test2",Totalca.toString())
-            viewModel.TotalCa.value= "carbo: "+Totalca.toString()+" g"
-            viewModel.TotalEn.value="energy: "+Totalen.toString()+" kcal"
-            viewModel.TotalFa.value= "fat: "+Totalfa.toString()+" g"
-            viewModel.TotalPr.value="protein: "+Totalpr.toString()+" g"
-            viewModel.TotalSo.value="sodium: "+Totalso.toString()+" mg"
-            viewModel.TotalSu.value="sugar: "+Totalsu.toString()+" g"
-            viewModel.TotalSF.value="S fat: "+Totalsf.toString()+" g"
-            viewModel.TotalTF.value="T fat: "+Totaltf.toString()+" g"
+//            viewModel.TotalCa.value= "carbo: "+Totalca.toString()+" g  |"
+//            viewModel.TotalEn.value="energy: "+Totalen.toString()+" kcal  |"
+//            viewModel.TotalFa.value= "fat: "+Totalfa.toString()+" g  |"
+//            viewModel.TotalPr.value="protein: "+Totalpr.toString()+" g  |"
+//            viewModel.TotalSo.value="sodium: "+Totalso.toString()+" mg  |"
+//            viewModel.TotalSu.value="sugar: "+Totalsu.toString()+" g  |"
+//            viewModel.TotalSF.value="S fat: "+Totalsf.toString()+" g  |"
+//            viewModel.TotalTF.value="T fat: "+Totaltf.toString()+" g  |"
 
-            viewModel.Total.value="Total:    " + viewModel.TotalSF.value  + "| "+ viewModel.TotalTF.value  + "| "+ viewModel.TotalCa.value  + "| "+ viewModel.TotalEn.value  + "| "+ viewModel.TotalFa.value  + "| "+ viewModel.TotalPr.value  + "| "+ viewModel.TotalSo.value  + "| "+ viewModel.TotalSu.value
-
+            viewModel.TotalCa.value=Totalca.toString()
+            viewModel.TotalEn.value=Totalen.toString()
+            viewModel.TotalFa.value=Totalfa.toString()
+            viewModel.TotalPr.value=Totalpr.toString()
+            viewModel.TotalSo.value=Totalso.toString()
+            viewModel.TotalSu.value=Totalsu.toString()
+            viewModel.TotalSF.value=Totalsf.toString()
+            viewModel.TotalTF.value=Totaltf.toString()
+            Log.d(TAG,Totalso.toString())
+            //viewModel.Total.value="Total:    " + viewModel.TotalSF.value  + "| "+ viewModel.TotalTF.value  + "| "+ viewModel.TotalCa.value  + "| "+ viewModel.TotalEn.value  + "| "+ viewModel.TotalFa.value  + "| "+ viewModel.TotalPr.value  + "| "+ viewModel.TotalSo.value  + "| "+ viewModel.TotalSu.value
+            viewModel.Total.value="Total:    "
 
 //            viewModel.Total.value=
         }
+
+
         db.collection("standard").document("001").collection("nutri").addSnapshotListener{querySnapshot, firebaseFirestoreException ->
-            viewModel.standard.value="Standard: "+
-                querySnapshot?.documents?.map {
-                        item ->
-                "${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
+            viewModel.standard.value="Standard: "
+//                querySnapshot?.documents?.map {
+            querySnapshot?.documents?.forEach { nutri ->
+                //                "${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
 
-               // Log.d("ListFragment",item.id+" "+item.getLong("value"))
+                // Log.d("ListFragment",item.id+" "+item.getLong("value"))
 
-            }?.joinToString(", ")}
+//            }?.joinToString(", ")}
+                when (nutri.id) {
 
+                    "S fat" -> viewModel.standardSF.value = nutri.getLong("value").toString()
+                    "T fat" -> viewModel.standardTF.value = nutri.getLong("value").toString()
+                    "carbo" -> viewModel.standardCa.value = nutri.getLong("value").toString()
+                    "energy" -> viewModel.standardEn.value = nutri.getLong("value").toString()
+                    "fat" -> viewModel.standardFa.value = nutri.getLong("value").toString()
+                    "protein" -> viewModel.standardPr.value = nutri.getLong("value").toString()
+                    "sodium" -> viewModel.standardSo.value = nutri.getLong("value").toString()
+                    "sugar" -> viewModel.standardSu.value = nutri.getLong("value").toString()
+
+                }
+
+            }}
 
 
         //button for creating new list

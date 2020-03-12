@@ -34,7 +34,7 @@ class detailItemFragment : Fragment() {
     ): View? {
         setHasOptionsMenu(true)
         detailItemViewModel =
-            ViewModelProviders.of(this).get(detailItemViewModel::class.java)
+            ViewModelProviders.of(this).get(DetailItemViewModel::class.java)
         binding = DetailItemFragmentBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@detailItemFragment
             vmProd = detailItemViewModel
@@ -45,7 +45,7 @@ class detailItemFragment : Fragment() {
 
         override fun onActivityCreated(savedInstanceState: Bundle?) {
             super.onActivityCreated(savedInstanceState)
-            viewModel = ViewModelProviders.of(this).get(DetailItemViewModel::class.java)
+//            viewModel = ViewModelProviders.of(this).get(DetailItemViewModel::class.java)
             // TODO: Use the ViewModel
 
 //            val contents =

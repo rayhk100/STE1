@@ -5,12 +5,13 @@
 
     <data>
         <import type="com.example.ste1.MainActivity" />
-
+        <import type="android.util.Log" />
         <variable
-            name="item"
+            name="itemO"
             type="com.example.ste1.ui.list.ItemViewModel" />
+        <variable name="clickHandler" type="com.example.ste1.ClickHandler" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout  android:id="@+id/constraints"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -25,10 +26,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/item_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
 
 
         <LinearLayout
+            android:onClick='@{(v) -> ((MainActivity) v.getContext()).clickHandler(v,itemO.code  )}'
             android:id="@+id/item_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,7 +43,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/toggleButton"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,7 +63,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@{item.title}"
+                        android:text="@{itemO.title}"
                         android:layout_weight="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -70,19 +75,19 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_weight="1"
-                        android:text="@{item.AddDate}"
+                        android:text="@{itemO.AddDate}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/buttonListA"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="detail" />
+<!--                <Button-->
+<!--                    android:id="@+id/buttonListA"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="8dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="detail" />-->
             </LinearLayout>
 
             <!--            <TextView-->

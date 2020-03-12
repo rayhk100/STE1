@@ -43,7 +43,7 @@
     <string name="item_ingre_tfat">T fat (g)</string>
     <string name="item_ingre_carbo">carbo (g)</string>
     <string name="item_ingre_sugar">Sugar (g)</string>
-    <string name="item_ingre_sod">Sodium (g)</string>
+    <string name="item_ingre_sod">Sodium (mg)</string>
 
     <string name="item_nutri">Item nutrition</string>
     <string name="item_code">Item barcode</string>

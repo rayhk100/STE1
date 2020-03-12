@@ -74,5 +74,5 @@ class ListViewModel : ViewModel() {
 //    }
 
     val items: ObservableList<ItemViewModel> = ObservableArrayList()
-    val itemBinding = ItemBinding.of<ItemViewModel>(BR.item, R.layout.list_items_fragment)
+    val itemBinding = ItemBinding.of<ItemViewModel>(BR.itemO, R.layout.list_items_fragment)
 }

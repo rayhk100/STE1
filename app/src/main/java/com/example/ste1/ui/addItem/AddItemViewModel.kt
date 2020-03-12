@@ -39,4 +39,7 @@ class AddItemViewModel : ViewModel() {
     val code = MutableLiveData<String>().apply {
         value = ""
     }
+    val quan = MutableLiveData<String>().apply {
+        value = ""
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.ste1.ui.addItem
 
+import android.icu.text.DecimalFormat
+import android.icu.text.NumberFormat
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +18,8 @@ import com.example.ste1.databinding.AddItemFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.add_item_fragment.*
+import java.math.RoundingMode
 
 class AddItemFragment : Fragment() {
     private lateinit var binding: AddItemFragmentBinding
@@ -49,7 +53,20 @@ class AddItemFragment : Fragment() {
         //viewModel = ViewModelProviders.of(this).get(AddItemViewModel::class.java)
 
 //        binding.item_ingre.adapter = ArrayAdapter<String>(context, arrayOf(""))
+
+
+        binding.editQuantity.visibility= View.GONE
+        binding.checkBox100mL.setOnClickListener {
+
+            if(!binding.checkBox100mL.isChecked){
+                binding.editQuantity.visibility= View.GONE
+            }else{
+                binding.editQuantity.visibility= View.VISIBLE
+            }
+        }
         binding.apply {
+
+
             addItemSubmit.setOnClickListener {
                 view ->
                 if (vm?.code?.value.isNullOrEmpty() || vm?.name?.value.isNullOrEmpty()||
@@ -64,7 +81,34 @@ class AddItemFragment : Fragment() {
                         Snackbar.LENGTH_LONG
                     )
                         .setAction("Action", null).show()
-                } else {
+                } else if(vm?.quan?.value!!.isNullOrEmpty()&&binding.checkBox100mL.isChecked){
+                        Snackbar.make(
+                            view,
+                            "Please input product quantity.",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction("Action", null).show()
+                    }
+                   else  if (vm?.quan?.value!!.toDouble()>1000&&binding.checkBox100mL.isChecked){
+                        Snackbar.make(
+                            view,
+                            "Qantity is too high!",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction("Action", null).show()
+                    }else if(vm?.quan?.value!!.toDouble()<=10&&binding.checkBox100mL.isChecked){
+                        Snackbar.make(
+                            view,
+                            "Qantity at least 10mL.",
+                            Snackbar.LENGTH_LONG
+                        )
+                            .setAction("Action", null).show()
+                    }
+
+
+
+
+                else{
                     Log.d("addItemFragment", "adding")
                 val db = FirebaseFirestore.getInstance()
                     val pathdoc =vm?.code?.value.toString()
@@ -75,6 +119,28 @@ class AddItemFragment : Fragment() {
                         "ingre" to ingrelist
 
                         )
+
+                    if(!vm?.quan?.value.isNullOrEmpty()){
+                        val quanP=vm?.quan?.value!!.toDouble()
+
+
+                        vm?.nutri_energy?.value=(vm?.nutri_energy?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+                        Log.d(TAG+"_dem: ",vm?.nutri_energy?.value)
+                        vm?.nutri_carbo?.value=(vm?.nutri_carbo?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_fat?.value=(vm?.nutri_fat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_protein?.value=(vm?.nutri_protein?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sfat?.value=(vm?.nutri_sfat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_tfat?.value=(vm?.nutri_tfat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sugar?.value=(vm?.nutri_sugar?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sodium?.value=(vm?.nutri_sodium?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                    }
                     val dataer =hashMapOf(
                         "value" to  vm?.nutri_energy?.value!!.toDouble(),
                         "unit" to "kcal"
@@ -105,8 +171,10 @@ class AddItemFragment : Fragment() {
                     )
                     val dataso =hashMapOf(
                         "value" to  vm?.nutri_sodium?.value!!.toDouble(),
-                        "unit" to "g"
+                        "unit" to "mg"
                     )
+
+
                     if(db.collection("Product1").document(pathdoc)!=null){
                         Log.d("addItemFragment", "adding with merge")
                      db.collection("Product1").document(pathdoc).set(data, SetOptions.merge())
@@ -173,4 +241,9 @@ class AddItemFragment : Fragment() {
 
         }
 }
+
+    fun Double.roundTo(n: Int):Double{
+       return "%.${n}f".format(this).toDouble()
+
+    }
 }

@@ -42,29 +42,232 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent">
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="#03A9F4"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{vm.Standard}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
-                <TextView
-                    android:id="@+id/textView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{vm.Total}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:layout_marginEnd="8dp"
+                    android:background="#03A9F4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_Col"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_nutri"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_Ca"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_carbo"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_en"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_ene"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_fa"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_fat"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_pr"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_pro"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_sf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_sfat"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_tf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_tfat"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_su"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_sugar"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_Col_so"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/item_ingre_sod"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="#03A9F4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_S"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standard}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/textView_S_ca"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardCa}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_en"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardEn}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_fa"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardFa}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_pr"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardPr}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_sf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardSF}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_tf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardTF}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_su"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardSu}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_S_so"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.standardSo}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginEnd="8dp"
+                    android:background="#03A9F4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_T"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.total}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+                    <TextView
+                        android:id="@+id/textView_T_ca"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalCa}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_en"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalEn}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_fa"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalFa}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_pr"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalPr}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_sf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalSF}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_tf"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalTF}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_su"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalSu}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <TextView
+                        android:id="@+id/textView_T_so"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="@{vm.totalSo}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                </LinearLayout>
             </LinearLayout>
         </HorizontalScrollView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

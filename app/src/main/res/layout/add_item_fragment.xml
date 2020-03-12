@@ -62,8 +62,45 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre"
-                    android:inputType="text"
+                    android:inputType="textImeMultiLine"
                     android:text="@={vm.ingre}" />
+
+                <TextView
+                    android:id="@+id/textView_nutri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="Please check data is for 'per 100ml' or '1 product'"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/checkBox_100mL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="per 100mL" />
+
+                    <EditText
+                        android:id="@+id/edit_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="16dp"
+                        android:ems="10"
+                        android:hint="Quantity(mL): "
+                        android:inputType="number"
+                        android:text="@={vm.quan}" />
+
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/editText"
@@ -74,7 +111,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_ene"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_energy}" />
 
                 <EditText
@@ -86,7 +123,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_pro"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_protein}" />
 
                 <EditText
@@ -98,7 +135,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_fat"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_fat}" />
 
                 <EditText
@@ -110,7 +147,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_sfat"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_sfat}" />
 
                 <EditText
@@ -122,7 +159,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_tfat"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_tfat}" />
 
                 <EditText
@@ -134,7 +171,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_carbo"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_carbo}" />
 
                 <EditText
@@ -146,7 +183,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_sugar"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_sugar}" />
 
                 <EditText
@@ -158,7 +195,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_ingre_sod"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.nutri_sodium}" />
 
                 <EditText
@@ -170,7 +207,7 @@
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:hint="@string/item_code"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:text="@={vm.code}" />
 
                 <Button
