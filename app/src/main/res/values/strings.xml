@@ -62,6 +62,19 @@
         <item>sweetener</item>
     </string-array>
 
+    <string name="dialog_prob">Problem Report: please check the issue</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="list_prob">
+        <item>Name</item>
+        <item>Nutrition</item>
+        <item>Ingredient</item>
+        <item>Image</item>
+        <item>Reminder</item>
+
+    </string-array>
+
 
 
 </resources>

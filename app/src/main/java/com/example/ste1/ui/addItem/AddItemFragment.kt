@@ -125,7 +125,7 @@ class AddItemFragment : Fragment() {
 
 
                         vm?.nutri_energy?.value=(vm?.nutri_energy?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
-                        Log.d(TAG+"_dem: ",vm?.nutri_energy?.value)
+//                        Log.d(TAG+"_dem: ",vm?.nutri_energy?.value)
                         vm?.nutri_carbo?.value=(vm?.nutri_carbo?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
 
                         vm?.nutri_fat?.value=(vm?.nutri_fat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
@@ -174,54 +174,56 @@ class AddItemFragment : Fragment() {
                         "unit" to "mg"
                     )
 
+                    db.collection("Product1").document(pathdoc).addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                        if(documentSnapshot?.exists()!!){
+                            Log.d("addItemFragment", "adding with merge")
+                            db.collection("Product1").document(pathdoc).set(data, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("energy").set(dataer, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("protein").set(datapr, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("fat").set(datafa, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("S fat").set(datasf, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("T fat").set(datatf, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("carbo").set(dataca, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sugar").set(datasu, SetOptions.merge())
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
 
-                    if(db.collection("Product1").document(pathdoc)!=null){
-                        Log.d("addItemFragment", "adding with merge")
-                     db.collection("Product1").document(pathdoc).set(data, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("energy").set(dataer, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("protein").set(datapr, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("fat").set(datafa, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("S fat").set(datasf, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("T fat").set(datatf, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("carbo").set(dataca, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("sugar").set(datasu, SetOptions.merge())
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
+                        }else{
+                            Log.d("addItemFragment", "add")
+                            db.collection("Product1").document(pathdoc).set(data)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("energy").set(dataer)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("protein").set(datapr)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("fat").set(datafa)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("S fat").set(datasf)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("T fat").set(datatf)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("carbo").set(dataca)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sugar").set(datasu)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sodium").set(dataso)
 
-                    }else{
-                        Log.d("addItemFragment", "add")
-                     db.collection("Product1").document(pathdoc).set(data)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("energy").set(dataer)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("protein").set(datapr)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("fat").set(datafa)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("S fat").set(datasf)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("T fat").set(datatf)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("carbo").set(dataca)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("sugar").set(datasu)
-                        db.collection("Product1").document(pathdoc)
-                            .collection("nutri").document("sodium").set(dataso)
-
-                        Snackbar.make(
-                            view,
-                            "data created",
-                            Snackbar.LENGTH_LONG
-                        )
-                            .setAction("Action", null).show()
+                            Snackbar.make(
+                                view,
+                                "data created",
+                                Snackbar.LENGTH_LONG
+                            )
+                                .setAction("Action", null).show()
+                        }
                     }
+
 
 
 
