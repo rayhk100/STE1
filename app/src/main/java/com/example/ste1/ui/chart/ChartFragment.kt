@@ -88,8 +88,6 @@ class ChartFragment : Fragment() {
             }
 
 
-
-
         val year=LocalDateTime.now().year
         //val m1= LocalDateTime.parse("2020-01-01")
 //        val m2=time.withYear(year).withMonth(2).withDayOfMonth(1)
@@ -147,9 +145,7 @@ class ChartFragment : Fragment() {
 //
 //                    Totalen.add(AllProduct["Product1/"+it?.getString("item")]!!.energy.value!!)
 //                    Totalfa=Totalfa.plus(AllProduct["Product1/"+it?.getString("item")]!!.fat.value!!)
-
 //                    }
-
 
 
                 }
@@ -161,10 +157,10 @@ class ChartFragment : Fragment() {
             val enteries1 = Totalen.mapIndexed { index, d ->
                 Entry(index.toFloat(), d.toFloat())
             }
-            var goal=2350
-           seekBar_S.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            var goal=2350*30/2
+           binding.seekBarS.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    goal=progress
+                    goal=progress*30/2
                    val standardList= arrayListOf<Float>(goal.toFloat(),goal.toFloat(),goal.toFloat()
                        ,goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat()
                        ,goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat())

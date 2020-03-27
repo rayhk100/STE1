@@ -67,8 +67,6 @@ class detailItemFragment : Fragment() {
                 } else if (mSelectedItems.contains(which)) {
                     mSelectedItems.remove((which));
                 }
-
-
             })
             .setPositiveButton(R.string.submit, { dialog, id ->
                 val problemRef = db.collection("Problem").document(arguments?.getString("code")!!)

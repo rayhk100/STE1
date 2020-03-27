@@ -321,12 +321,6 @@ class HomeFragment : Fragment() {
 
 
 
-
-
-
-
-
-
                                         binding.buttonCountToList.isClickable = true
 
 
@@ -346,9 +340,9 @@ class HomeFragment : Fragment() {
 //                                                    "name" to nameI,
                                                     //"date" to Current,
                                                     "updateAt" to FieldValue.serverTimestamp(),
-                                                    "item" to code!!,
-                                                    "timeAt" to DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(Current)
-//                                                    "timeAt" to Current
+                                                    "item" to code!!
+//                                                    "timeAt" to DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(Current)
+////                                                    "timeAt" to Current
                                                 )
                                                //if(FirebaseAuth.getInstance().currentUser!=null){
                                                    val doc=db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())

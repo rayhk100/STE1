@@ -99,7 +99,6 @@ class ListFragment : Fragment() {
                 val testDate=it?.getTimestamp("updateAt")
 
                 Log.d(TAG+"_time test",testDate?.toDate()?.time.toString())
-//                if(it?.getString("timeAt").toString().contains(time.toString()))
                     if(testDate!=null&&testDate?.toDate()?.time?.compareTo(timeNow.time)>-1)
                 {  
                     Totalsf=Totalsf.plus(AllProduct["Product1/"+it?.getString("item")]!!.sfat.value!!)
