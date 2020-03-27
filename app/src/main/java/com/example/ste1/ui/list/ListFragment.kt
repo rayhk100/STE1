@@ -163,17 +163,15 @@ class ListFragment : Fragment() {
 //            viewModel.Total.value=
         }
 
-
-        db.collection("standard").document("001").collection("nutri").addSnapshotListener{querySnapshot, firebaseFirestoreException ->
-            viewModel.standard.value="Standard: "
+        if(FirebaseAuth.getInstance().currentUser==null||FirebaseAuth.getInstance().currentUser?.isAnonymous!!){
+            db.collection("standard").document("001").collection("nutri").addSnapshotListener{querySnapshot, firebaseFirestoreException ->
+               viewModel.standard.value="Standard: "
 //                querySnapshot?.documents?.map {
-            querySnapshot?.documents?.forEach { nutri ->
+                    querySnapshot?.documents?.forEach { nutri ->
                 //                "${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
-
                 // Log.d("ListFragment",item.id+" "+item.getLong("value"))
-
 //            }?.joinToString(", ")}
-                when (nutri.id) {
+                       when (nutri.id) {
 
                     "S fat" -> viewModel.standardSF.value = nutri.getLong("value").toString()
                     "T fat" -> viewModel.standardTF.value = nutri.getLong("value").toString()
@@ -184,19 +182,42 @@ class ListFragment : Fragment() {
                     "sodium" -> viewModel.standardSo.value = nutri.getLong("value").toString()
                     "sugar" -> viewModel.standardSu.value = nutri.getLong("value").toString()
 
-                }
+                      }
 
-            }}
+            }
 
+        }
 
-        //button for creating new list
-//        binding.apply {
-//            createList.setOnClickListener {
-//                CollRef.document().set(vm!!.newList)
-//            }
-//        }
+                 }else{
+            val info = FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+           info.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
 
+               var age =documentSnapshot?.get("age").toString()
+               var weight=documentSnapshot?.get("weight").toString()
+               var height=documentSnapshot?.get("height").toString()
+               var sex=documentSnapshot?.get("sex").toString()
 
-       // binding.vm.items.add(model)
+               if(sex=="M"){
+                   viewModel.standardEn.value=(1.375*(weight.toDouble()*10+height.toDouble()*6.25-age.toDouble()*5+5)).roundTo(0).toString()
+               }
+               else if (sex=="F"){
+                   viewModel.standardEn.value=(1.375*(weight.toDouble()*10+height.toDouble()*6.25-age.toDouble()*5-161)).roundTo(0).toString()
+               }
+
+               viewModel.standardPr.value = (0.83*weight.toDouble()).roundTo(0).toString()
+               viewModel.standardTF.value = (0.01*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
+               viewModel.standardSF.value = (0.1*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
+               viewModel.standardFa.value = (0.2*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
+               viewModel.standardCa.value = (0.6*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
+               viewModel.standardSu.value =(0.1*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
+               var so = 2000
+               viewModel.standardSo.value= so.toString()
+           }
+
+        }
+    }
+    fun Double.roundTo(n: Int):Double{
+        return "%.${n}f".format(this).toDouble()
+
     }
 }

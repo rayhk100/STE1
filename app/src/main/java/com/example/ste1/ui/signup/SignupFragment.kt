@@ -17,7 +17,9 @@ import com.example.ste1.databinding.SignupFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.signup_fragment.*
 
 class SignupFragment : Fragment() {
 
@@ -59,6 +61,26 @@ class SignupFragment : Fragment() {
                     return@apply
                 }
 
+                if (sex.value.isNullOrEmpty()){
+                    Snackbar.make(view, "Sex has not been selected.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }
+                if (age.value.isNullOrEmpty()||weight.value.isNullOrEmpty()||height.value.isNullOrEmpty()){
+                    Snackbar.make(view, "No input for age, weight or height.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }
+                else if (age.value?.toInt()!!<=0 ||weight.value?.toDouble()!!<=0||height.value?.toDouble()!!<=0){
+                    Snackbar.make(view, "Invalid value for age, weight or height.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }else{
+                    weight.value=weight.value?.toDouble()?.roundTo(1).toString()
+                    height.value=height.value?.toDouble()?.roundTo(1).toString()
+                }
+
+
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email?.value!!, password?.value!!).addOnSuccessListener { auth ->
 
                     val req = UserProfileChangeRequest.Builder().setDisplayName(displayName.value)
@@ -82,6 +104,24 @@ class SignupFragment : Fragment() {
                             }
                         }
                     }
+
+                    val data= hashMapOf<String, Any>(
+                        "age" to age.value!!.toInt(),
+                        "weight" to weight.value!!.toDouble(),
+                        "height" to height.value!!.toDouble(),
+                        "sex" to sex.value!!
+                    )
+                    FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                        .set(data)
+//                        .collection("info").add(data)
+
+//                    val dataA= hashMapOf<String, Any>("value" to age.value!!)
+//                    val dataW=hashMapOf<String, Any>("value" to weight.value!!, "unit" to "kg")
+//                    val dataH= hashMapOf<String, Any>("value" to height.value!!, "unit" to "cm")
+//                    val dataS= hashMapOf<String,Any>("value" to sex.value!!)
+//
+//                    FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+//                        .collection("info").document("age").set(dataA)
                 }
             }
         }
@@ -98,5 +138,9 @@ class SignupFragment : Fragment() {
                 }
             }
         }
+    }
+    fun Double.roundTo(n: Int):Double{
+        return "%.${n}f".format(this).toDouble()
+
     }
 }

@@ -136,27 +136,15 @@ class MainActivity : AppCompatActivity() {
 
                 db.collection("Product1").document(doc.id).collection("nutri").addSnapshotListener { snapshot, firebaseFirestoreException ->
                     val product = Product(doc.getString("name")!!,
-
-
                             snapshot?.documents?.map { item ->item.getDouble("value")!!}!!  )
-
-
                     AllProduct2.set(doc.reference.path,product)
 //                    Log.d("Main_ALL1",AllProduct2[doc.reference.path]!!._productName)
 //                    Log.d("Main_ALL1",AllProduct2[doc.reference.path]!!.nutri.toString())
-
                 }
-
-
-
-
 
 //                Log.d("Main_ALL",doc.reference.path)
 //                Log.d("Main_ALL",AllProduct[doc.reference.path]!!.product.value.toString())
             }
-
-
-
 
         }
 

@@ -1,5 +1,6 @@
 package com.example.ste1.ui.chart
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import com.example.ste1.MainActivity
 import com.example.ste1.MainActivity.Companion.AllProduct
-
 import com.example.ste1.R
 import com.example.ste1.databinding.ChartFragmentBinding
 import com.github.mikephil.charting.components.XAxis
@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.chart_fragment.*
@@ -61,7 +62,7 @@ class ChartFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val linechart=binding.lineChart
-
+        linechart.description.isEnabled=false
         val xAxis =linechart.xAxis
             xAxis.position = XAxis.XAxisPosition.BOTTOM
         val months= arrayOf("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
@@ -173,10 +174,17 @@ class ChartFragment : Fragment() {
                    }
 
                    val lineDateSet2 = LineDataSet(enteries2,"Standard")
-
+                    lineDateSet2.setDrawValues(false)
                    val lineDateSet = LineDataSet(enteries1,"Energy")
-                   val date = LineData(lineDateSet,lineDateSet2)
-                   linechart.data =date
+//                   lineDateSet.setDrawValues(true)
+                   lineDateSet.setDrawFilled(true)
+                   lineDateSet.fillColor=(Color.GREEN)
+                   lineDateSet.setColor(Color.GREEN)
+//                   lineDateSet.setColors(R.color.colorAreaGreen)
+
+
+                   val data = LineData(lineDateSet,lineDateSet2)
+                   linechart.data =data
 
 
                    linechart.invalidate()
@@ -193,27 +201,32 @@ class ChartFragment : Fragment() {
            })
 
 
-
-
-
-
             xAxis.granularity=1f
             xAxis.valueFormatter = formatter
+            xAxis.mAxisMinimum=0f
 
             val yAxisRight = linechart.axisRight
             yAxisRight.isEnabled =false
 
             val yAxisLeft = linechart.axisLeft
-            yAxisRight.mAxisRange=2f
+//            yAxisRight.mAxisRange=2f
             yAxisLeft.granularity =1f
+            yAxisLeft.spaceBottom=0f
 
 
             val lineDateSet = LineDataSet(enteries1,"Energy")
+//            lineDateSet.setDrawValues(true)
+            lineDateSet.setDrawFilled(true)
+//            lineDateSet.setColors(R.color.colorAreaGreen)
+//            lineDateSet.setColor(R.color.colorAreaGreen,R.color.colorPrimary)
+           lineDateSet.fillColor=(Color.GREEN)
 
+            lineDateSet.setColors(Color.GREEN)
 
+            val data = LineData(lineDateSet)
 
-            val date = LineData(lineDateSet)
-            linechart.data =date
+//data.colors.set(R.color.colorPrimary,R.color.colorAreaGreen)
+            linechart.data =data
 
             linechart.invalidate()
 

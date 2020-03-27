@@ -217,7 +217,7 @@ class AddItemFragment : Fragment() {
 
                             Snackbar.make(
                                 view,
-                                "data created",
+                                "New item record created, thank you.",
                                 Snackbar.LENGTH_LONG
                             )
                                 .setAction("Action", null).show()

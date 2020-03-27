@@ -15,4 +15,24 @@ class ProfileViewModel : ViewModel() {
     val email = MutableLiveData<String>().apply {
         value = ""
     }
+
+    val weight = MutableLiveData<String>().apply {
+        value = ""
+    }
+
+    val height = MutableLiveData<String>().apply {
+        value = ""
+    }
+
+    val age = MutableLiveData<String>().apply {
+        value = ""
+    }
+
+    val sex = MutableLiveData<String>().apply {
+        value = ""
+    }
+
+    fun setSex(value:String) {
+        sex.value = value
+    }
 }

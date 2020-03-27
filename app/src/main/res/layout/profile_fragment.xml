@@ -45,6 +45,89 @@
             app:layout_constraintStart_toEndOf="@+id/profile_avatar"
             app:layout_constraintTop_toBottomOf="@+id/profile_display_name" />
 
+        <EditText  android:id="@+id/profile_age"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:text="@={vm.age}"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_avatar" />
+
+        <EditText  android:id="@+id/profile_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:text="@={vm.weight}"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_age" />
+
+        <EditText  android:id="@+id/profile_height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:text="@={vm.height}"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_weight" />
+
+
+        <RadioGroup
+            android:id="@+id/profile_sex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_height">
+
+            <RadioButton
+                android:id="@+id/radioButton_P_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/male"
+                android:checked='@{vm.sex.equals("M")}'
+                android:onClick='@{() -> vm.setSex("M")}'
+                android:textSize="20sp"/>
+
+            <RadioButton
+                android:id="@+id/radioButton_P_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/female"
+                android:checked='@{vm.sex.equals("F")}'
+
+                android:onClick='@{() -> vm.setSex("F")}'
+                android:textSize="20sp"/>
+        </RadioGroup>
+        <Button android:id="@+id/profile_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_sex"
+            android:text="Update"
+            />
+
         <Button  android:id="@+id/profile_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.ste1.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -329,15 +330,14 @@ class HomeFragment : Fragment() {
                                         binding.buttonCountToList.isClickable = true
 
 
-                                        binding.buttonCountToList.setOnClickListener {
+                                        binding.buttonCountToList.setOnClickListener {view->
 
                                             if(!homeViewModel.productnu.equals("")&&!homeViewModel.productin.equals(""))
                                             {
                                                 Log.d(TAG,"adding item to user list")
 
 
-//                                                val Current = DateTimeFormatter.ISO_INSTANT.format(
-//                                                Instant.now())
+//
                                                 val Current = LocalDateTime.now()
 
                                                 val nameI = homeViewModel.productnu.value!!
@@ -352,7 +352,17 @@ class HomeFragment : Fragment() {
                                                 )
                                                //if(FirebaseAuth.getInstance().currentUser!=null){
                                                    val doc=db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                                                       .collection("list").add(data)
+                                                       .collection("list").add(data).addOnCompleteListener {
+                                                           Snackbar.make(
+                                                               view,
+                                                               "Counted to product list.",
+                                                               Snackbar.LENGTH_LONG
+                                                           )
+                                                               .setAction("Action", null).show()
+
+                                                       }
+
+                                            }
 
 
 //                                                    doc.addOnSuccessListener {docRef -> db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
@@ -363,9 +373,6 @@ class HomeFragment : Fragment() {
 //                                                   db.collection("User").add(FirebaseAuth.getInstance().currentUser?.uid.toString())
 //                                                   db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
 //                                                   .collection("list").add(data)}
-
-
-                                            }
 
                                         }
                                     }
