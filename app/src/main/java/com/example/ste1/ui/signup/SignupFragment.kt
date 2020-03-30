@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,6 +51,7 @@ class SignupFragment : Fragment() {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
+            Log.d("Sign_up"," on click")
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_CODE)
         }
 
@@ -59,13 +61,13 @@ class SignupFragment : Fragment() {
                     Snackbar.make(view, "Password dose not match.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                     return@apply
-                }
+                }else
 
                 if (sex.value.isNullOrEmpty()){
                     Snackbar.make(view, "Sex has not been selected.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                     return@apply
-                }
+                }else
                 if (age.value.isNullOrEmpty()||weight.value.isNullOrEmpty()||height.value.isNullOrEmpty()){
                     Snackbar.make(view, "No input for age, weight or height.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
@@ -82,6 +84,16 @@ class SignupFragment : Fragment() {
 
 
                 FirebaseAuth.getInstance().createUserWithEmailAndPassword(email?.value!!, password?.value!!).addOnSuccessListener { auth ->
+
+
+                    val data= hashMapOf<String, Any>(
+                        "age" to age.value!!.toInt(),
+                        "weight" to weight.value!!.toDouble(),
+                        "height" to height.value!!.toDouble(),
+                        "sex" to sex.value!!
+                    )
+                    FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                        .set(data)
 
                     val req = UserProfileChangeRequest.Builder().setDisplayName(displayName.value)
 
@@ -105,14 +117,7 @@ class SignupFragment : Fragment() {
                         }
                     }
 
-                    val data= hashMapOf<String, Any>(
-                        "age" to age.value!!.toInt(),
-                        "weight" to weight.value!!.toDouble(),
-                        "height" to height.value!!.toDouble(),
-                        "sex" to sex.value!!
-                    )
-                    FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                        .set(data)
+
 //                        .collection("info").add(data)
 
 //                    val dataA= hashMapOf<String, Any>("value" to age.value!!)
@@ -133,6 +138,7 @@ class SignupFragment : Fragment() {
         when(requestCode) {
             REQUEST_GALLERY_CODE -> {
                 data?.data?.let { uri ->
+                    Log.d("Sign_up",uri.toString())
                     binding.signupAvatar.load(uri)
                     binding.vm?.avatar?.value = uri.toString()
                 }

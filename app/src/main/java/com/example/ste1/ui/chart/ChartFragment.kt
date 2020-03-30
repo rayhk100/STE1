@@ -157,10 +157,33 @@ class ChartFragment : Fragment() {
             val enteries1 = Totalen.mapIndexed { index, d ->
                 Entry(index.toFloat(), d.toFloat())
             }
-            var goal=2350*30/2
+            var goal=(2350*30/2)
+            if(FirebaseAuth.getInstance().currentUser!=null&&!FirebaseAuth.getInstance().currentUser?.isAnonymous!!){
+                val info = FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                info.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+
+                    var age = documentSnapshot?.get("age").toString()
+                    var weight = documentSnapshot?.get("weight").toString()
+                    var height = documentSnapshot?.get("height").toString()
+                    var sex = documentSnapshot?.get("sex").toString()
+
+                    if (sex == "M") {
+                        goal =
+                            (1.375 * (weight.toDouble() * 10 + height.toDouble() * 6.25 - age.toDouble() * 5 + 5)).roundTo(
+                                0
+                            ).toInt()
+                    } else if (sex == "F") {
+                        goal =
+                            (1.375 * (weight.toDouble() * 10 + height.toDouble() * 6.25 - age.toDouble() * 5 - 161)).roundTo(
+                                0
+                            ).toInt()
+                    }
+                }
+           }
+
            binding.seekBarS.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    goal=progress*30/2
+                    goal=(progress*30/2)
                    val standardList= arrayListOf<Float>(goal.toFloat(),goal.toFloat(),goal.toFloat()
                        ,goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat()
                        ,goal.toFloat(),goal.toFloat(),goal.toFloat(),goal.toFloat())
@@ -199,15 +222,15 @@ class ChartFragment : Fragment() {
 
             xAxis.granularity=1f
             xAxis.valueFormatter = formatter
-            xAxis.mAxisMinimum=0f
+//            xAxis.mAxisMinimum=0f
 
             val yAxisRight = linechart.axisRight
             yAxisRight.isEnabled =false
 
             val yAxisLeft = linechart.axisLeft
-//            yAxisRight.mAxisRange=2f
+            yAxisRight.mAxisRange=2f
             yAxisLeft.granularity =1f
-            yAxisLeft.spaceBottom=0f
+//            yAxisLeft.spaceBottom=0f
 
 
             val lineDateSet = LineDataSet(enteries1,"Energy")
@@ -232,6 +255,10 @@ class ChartFragment : Fragment() {
         }
 
 
+
+    }
+    fun Double.roundTo(n: Int):Double{
+        return "%.${n}f".format(this).toDouble()
 
     }
 
