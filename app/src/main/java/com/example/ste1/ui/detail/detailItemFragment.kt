@@ -85,7 +85,7 @@ class detailItemFragment : Fragment() {
                             "Name" to 0,
                             "Nutrition" to 0,
                             "Ingredient" to 0,
-                            "Image" to 0,
+//                            "Image" to 0,
                             "Reminder" to 0
                         )
 
@@ -107,6 +107,16 @@ class detailItemFragment : Fragment() {
                         "User" to user,
                         "Time" to time,
                         "Detail" to comment
+                    )
+                    problemRef.collection("comment").add(data)
+                }else{
+                    Log.d("detail_dialog_no ", " no comment")
+                    val time = FieldValue.serverTimestamp()
+                    val user =FirebaseAuth.getInstance().currentUser?.uid!!
+                    val data= hashMapOf<String,Any>(
+                        "User" to user,
+                        "Time" to time,
+                        "Detail" to "no comment"
                     )
                     problemRef.collection("comment").add(data)
                 }

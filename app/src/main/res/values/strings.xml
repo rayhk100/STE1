@@ -76,7 +76,7 @@
         <item>Name</item>
         <item>Nutrition</item>
         <item>Ingredient</item>
-        <item>Image</item>
+<!--        <item>Image</item>-->
         <item>Reminder</item>
 
     </string-array>
