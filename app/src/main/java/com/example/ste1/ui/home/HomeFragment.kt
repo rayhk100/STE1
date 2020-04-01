@@ -55,15 +55,15 @@ class HomeFragment : Fragment() {
         .setBarcodeFormats(
 //            FirebaseVisionBarcode.FORMAT_QR_CODE,
 //            FirebaseVisionBarcode.FORMAT_AZTEC
-            FirebaseVisionBarcode.FORMAT_CODABAR,
-            FirebaseVisionBarcode.FORMAT_CODE_128,
-            FirebaseVisionBarcode.FORMAT_CODE_39,
-            FirebaseVisionBarcode.FORMAT_CODE_93,
+//            FirebaseVisionBarcode.FORMAT_CODABAR,
+//            FirebaseVisionBarcode.FORMAT_CODE_128,
+//            FirebaseVisionBarcode.FORMAT_CODE_39,
+//            FirebaseVisionBarcode.FORMAT_CODE_93,
             FirebaseVisionBarcode.FORMAT_UPC_A,
-            FirebaseVisionBarcode.FORMAT_UPC_E,
-            FirebaseVisionBarcode.FORMAT_EAN_13,
-            FirebaseVisionBarcode.FORMAT_EAN_8,
-            FirebaseVisionBarcode.FORMAT_ITF
+//            FirebaseVisionBarcode.FORMAT_UPC_E,
+            FirebaseVisionBarcode.FORMAT_EAN_13
+//            FirebaseVisionBarcode.FORMAT_EAN_8,
+//            FirebaseVisionBarcode.FORMAT_ITF
         )
         .build()
 
