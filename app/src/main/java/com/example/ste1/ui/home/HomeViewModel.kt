@@ -15,6 +15,7 @@ class HomeViewModel : ViewModel() {
     val  productnu= MutableLiveData<String>().apply {
         value = ""
     }
+
     val  reminder= MutableLiveData<String>().apply {
         value = ""
     }

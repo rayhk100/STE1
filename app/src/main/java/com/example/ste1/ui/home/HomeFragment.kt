@@ -319,8 +319,6 @@ class HomeFragment : Fragment() {
                                         homeViewModel.reminder.value=reminder+" "+reminderIN.joinToString(separator = ", "){ it -> "${it}" }
 
 
-
-
                                         binding.buttonCountToList.isClickable = true
 
 
