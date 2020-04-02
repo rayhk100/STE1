@@ -132,6 +132,7 @@
                         android:id="@+id/textView_S"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:text="@{vm.standard}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
@@ -206,6 +207,7 @@
                         android:id="@+id/textView_T"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:text="@{vm.total}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 

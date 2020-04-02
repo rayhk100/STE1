@@ -32,7 +32,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.jakewharton.threetenabp.AndroidThreeTen
+//import com.jakewharton.threetenabp.AndroidThreeTen
 import kotlinx.android.synthetic.main.detail_item_fragment.*
 
 
@@ -52,12 +52,6 @@ class MainActivity : AppCompatActivity() {
 //   val AllProduct3 = AllProduct:ObservableList<DetailItemViewModel>(){}
 
 //            val AllProduct3 =BaseObservable()
-
-
-
-
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         auth = FirebaseAuth.getInstance()
         val toolbar: Toolbar = findViewById(R.id.toolbar)
+        toolbar.collapseActionView()
         setSupportActionBar(toolbar)
 
 
@@ -148,7 +143,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        AndroidThreeTen.init(this)
+//        AndroidThreeTen.init(this)
 
 
 //        val fab: FloatingActionButton = findViewById(R.id.fab)
@@ -195,7 +190,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home,  R.id.nav_list
+                R.id.nav_home,  R.id.nav_list, R.id.nav_chart
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

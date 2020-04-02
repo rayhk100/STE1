@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import coil.api.load
 import com.example.ste1.MainActivity
-
 import com.example.ste1.R
 import com.example.ste1.databinding.SignupFragmentBinding
 import com.google.android.material.snackbar.Snackbar
@@ -51,12 +50,27 @@ class SignupFragment : Fragment() {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
-            Log.d("Sign_up"," on click")
+//            Log.d("Sign_up"," on click")
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_CODE)
         }
 
         binding.signupSubmit.setOnClickListener { view ->
             binding.vm?.apply {
+                if (displayName?.value!!.isNullOrEmpty()) {
+                    Snackbar.make(view, "Please input name.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }else
+                if (email?.value!!.isNullOrEmpty()) {
+                    Snackbar.make(view, "Please input email.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }else
+                if (password?.value!!.isNullOrEmpty()) {
+                    Snackbar.make(view, "Please input password.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show()
+                    return@apply
+                }else
                 if (password?.value!! != confirmPassword?.value!!) {
                     Snackbar.make(view, "Password dose not match.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
@@ -139,7 +153,9 @@ class SignupFragment : Fragment() {
             REQUEST_GALLERY_CODE -> {
                 data?.data?.let { uri ->
                     Log.d("Sign_up",uri.toString())
-                    binding.signupAvatar.load(uri)
+                    binding.signupAvatar.setImageURI(uri)
+//                    binding.signupAvatar.load(R.drawable.avatar)
+//                    Log.d("Sign_up",binding.signupAvatar.load(uri).isDisposed().toString())
                     binding.vm?.avatar?.value = uri.toString()
                 }
             }
