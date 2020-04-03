@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.core.view.size
 import com.example.ste1.MainActivity
 import com.example.ste1.MainActivity.Companion.AllProduct
 import com.example.ste1.R
@@ -210,12 +211,14 @@ class ChartFragment : Fragment() {
                    lineDateSet.setDrawFilled(true)
                    lineDateSet.fillColor=(Color.GREEN)
                    lineDateSet.setColor(Color.GREEN)
+                   lineDateSet.valueTextSize=13f
+                   lineDateSet2.valueTextSize=13f
 //                   lineDateSet.setColors(R.color.colorAreaGreen)
 
 
                    val data = LineData(lineDateSet,lineDateSet2)
                    linechart.data =data
-
+                   linechart.extraBottomOffset=2*6f
 
                    linechart.invalidate()
                   viewModel.standard.value="Goal: $progress"
@@ -233,6 +236,7 @@ class ChartFragment : Fragment() {
 
             xAxis.granularity=1f
             xAxis.valueFormatter = formatter
+            xAxis.textSize=13f
 //            xAxis.mAxisMinimum=0f
 
             val yAxisRight = linechart.axisRight
@@ -250,15 +254,20 @@ class ChartFragment : Fragment() {
 //            lineDateSet.setColors(R.color.colorAreaGreen)
 //            lineDateSet.setColor(R.color.colorAreaGreen,R.color.colorPrimary)
            lineDateSet.fillColor=(Color.GREEN)
+            lineDateSet.valueTextSize=13f
 
             lineDateSet.setColors(Color.GREEN)
 
             val data = LineData(lineDateSet)
 
 //data.colors.set(R.color.colorPrimary,R.color.colorAreaGreen)
+
             linechart.data =data
+            linechart.extraBottomOffset=3*13f
+
 
             linechart.invalidate()
+
 
 //            viewModel.Total.value=Totalen.toString()
 
