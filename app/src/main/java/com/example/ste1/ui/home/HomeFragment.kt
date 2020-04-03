@@ -53,9 +53,6 @@ class HomeFragment : Fragment() {
     val db = FirebaseFirestore.getInstance()
     val options = FirebaseVisionBarcodeDetectorOptions.Builder()
         .setBarcodeFormats(
-//            FirebaseVisionBarcode.FORMAT_QR_CODE,
-//            FirebaseVisionBarcode.FORMAT_AZTEC
-//            FirebaseVisionBarcode.FORMAT_CODABAR,
 //            FirebaseVisionBarcode.FORMAT_CODE_128,
 //            FirebaseVisionBarcode.FORMAT_CODE_39,
 //            FirebaseVisionBarcode.FORMAT_CODE_93,

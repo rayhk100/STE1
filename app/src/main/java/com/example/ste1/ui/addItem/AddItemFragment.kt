@@ -89,14 +89,17 @@ class AddItemFragment : Fragment() {
                         )
                             .setAction("Action", null).show()
                     }
-                   else  if (vm?.quan?.value!!.toDouble()>1000&&binding.checkBox100mL.isChecked){
+                   else if (!vm?.quan?.value!!.isNullOrEmpty()&&binding.checkBox100mL.isChecked){
+                    if(vm?.quan?.value!!.toDouble()>1000){
                         Snackbar.make(
                             view,
                             "Qantity is too high!",
                             Snackbar.LENGTH_LONG
                         )
                             .setAction("Action", null).show()
-                    }else if(vm?.quan?.value!!.toDouble()<=10&&binding.checkBox100mL.isChecked){
+                    }
+                    }else if(!vm?.quan?.value!!.isNullOrEmpty()&&binding.checkBox100mL.isChecked) {
+                    if (vm?.quan?.value!!.toDouble()<=10) {
                         Snackbar.make(
                             view,
                             "Qantity at least 10mL.",
@@ -104,6 +107,7 @@ class AddItemFragment : Fragment() {
                         )
                             .setAction("Action", null).show()
                     }
+                }
 
 
 
@@ -145,6 +149,7 @@ class AddItemFragment : Fragment() {
                         "value" to  vm?.nutri_energy?.value!!.toDouble(),
                         "unit" to "kcal"
                     )
+
                     val datapr =hashMapOf(
                         "value" to  vm?.nutri_protein?.value!!.toDouble(),
                         "unit" to "g"
@@ -173,27 +178,39 @@ class AddItemFragment : Fragment() {
                         "value" to  vm?.nutri_sodium?.value!!.toDouble(),
                         "unit" to "mg"
                     )
+                    
+
 
                     db.collection("Product1").document(pathdoc).addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
                         if(documentSnapshot?.exists()!!){
-                            Log.d("addItemFragment", "adding with merge")
-                            db.collection("Product1").document(pathdoc).set(data, SetOptions.merge())
+                            Log.d("addItemFragment", "adding existing data")
+
+//                            Snackbar.make(
+//                                view,
+//                                "Product exists.",
+//                                Snackbar.LENGTH_LONG
+//                            )
+//                                .setAction("Action", null).show()
+
+                            db.collection("Product1").document(pathdoc).update(data)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("energy").set(dataer, SetOptions.merge())
+                                .collection("nutri").document("energy").update(dataer)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("protein").set(datapr, SetOptions.merge())
+                                .collection("nutri").document("protein").update(datapr)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("fat").set(datafa, SetOptions.merge())
+                                .collection("nutri").document("fat").update(datafa)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("S fat").set(datasf, SetOptions.merge())
+                                .collection("nutri").document("S fat").update(datasf)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("T fat").set(datatf, SetOptions.merge())
+                                .collection("nutri").document("T fat").update(datatf)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("carbo").set(dataca, SetOptions.merge())
+                                .collection("nutri").document("carbo").update(dataca)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("sugar").set(datasu, SetOptions.merge())
+                                .collection("nutri").document("sugar").update(datasu)
                             db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
+                                .collection("nutri").document("sodium").update(dataso)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
 
                         }else{
                             Log.d("addItemFragment", "add")
