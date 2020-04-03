@@ -192,7 +192,7 @@ class AddItemFragment : Fragment() {
 //                            )
 //                                .setAction("Action", null).show()
 
-                            db.collection("Product1").document(pathdoc).update(data)
+                            db.collection("Product1").document(pathdoc).set(data)
                             db.collection("Product1").document(pathdoc)
                                 .collection("nutri").document("energy").update(dataer)
                             db.collection("Product1").document(pathdoc)

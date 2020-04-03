@@ -339,9 +339,11 @@ class HomeFragment : Fragment() {
 //                                                    "timeAt" to DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(Current)
 ////                                                    "timeAt" to Current
                                                 )
-                                               //if(FirebaseAuth.getInstance().currentUser!=null){
-                                                   val doc=db.collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
-                                                       .collection("list").add(data).addOnCompleteListener {
+                                               if(FirebaseAuth.getInstance().currentUser!=null) {
+                                                   val doc = db.collection("User")
+                                                       .document(FirebaseAuth.getInstance().currentUser?.uid.toString())
+                                                       .collection("list").add(data)
+                                                       .addOnCompleteListener {
                                                            Snackbar.make(
                                                                view,
                                                                "Counted to product list.",
@@ -350,7 +352,7 @@ class HomeFragment : Fragment() {
                                                                .setAction("Action", null).show()
 
                                                        }
-
+                                               }
                                             }
 
 

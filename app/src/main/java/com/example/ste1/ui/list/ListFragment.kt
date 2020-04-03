@@ -147,14 +147,14 @@ class ListFragment : Fragment() {
 //            viewModel.TotalSF.value="S fat: "+Totalsf.toString()+" g  |"
 //            viewModel.TotalTF.value="T fat: "+Totaltf.toString()+" g  |"
 
-            viewModel.TotalCa.value=Totalca.toString()
-            viewModel.TotalEn.value=Totalen.toString()
-            viewModel.TotalFa.value=Totalfa.toString()
-            viewModel.TotalPr.value=Totalpr.toString()
-            viewModel.TotalSo.value=Totalso.toString()
-            viewModel.TotalSu.value=Totalsu.toString()
-            viewModel.TotalSF.value=Totalsf.toString()
-            viewModel.TotalTF.value=Totaltf.toString()
+            viewModel.TotalCa.value=Totalca.roundTo(1).toString()
+            viewModel.TotalEn.value=Totalen.roundTo(1).toString()
+            viewModel.TotalFa.value=Totalfa.roundTo(1).toString()
+            viewModel.TotalPr.value=Totalpr.roundTo(1).toString()
+            viewModel.TotalSo.value=Totalso.roundTo(1).toString()
+            viewModel.TotalSu.value=Totalsu.roundTo(1).toString()
+            viewModel.TotalSF.value=Totalsf.roundTo(1).toString()
+            viewModel.TotalTF.value=Totaltf.roundTo(1).toString()
             Log.d(TAG,Totalso.toString())
             //viewModel.Total.value="Total:    " + viewModel.TotalSF.value  + "| "+ viewModel.TotalTF.value  + "| "+ viewModel.TotalCa.value  + "| "+ viewModel.TotalEn.value  + "| "+ viewModel.TotalFa.value  + "| "+ viewModel.TotalPr.value  + "| "+ viewModel.TotalSo.value  + "| "+ viewModel.TotalSu.value
             viewModel.Total.value="Total:    "
