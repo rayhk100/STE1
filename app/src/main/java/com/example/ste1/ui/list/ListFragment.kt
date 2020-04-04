@@ -11,7 +11,6 @@ import com.example.ste1.MainActivity
 import com.example.ste1.MainActivity.Companion.AllProduct
 import com.example.ste1.MainActivity.Companion.AllProduct2
 import com.example.ste1.Product
-
 import com.example.ste1.R
 import com.example.ste1.databinding.ListFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
