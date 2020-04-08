@@ -65,8 +65,9 @@
 
                     <TextView
                         android:id="@+id/textView_Col_Ca"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_carbo"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -74,6 +75,7 @@
                         android:id="@+id/textView_Col_en"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_ene"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -81,6 +83,7 @@
                         android:id="@+id/textView_Col_fa"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_fat"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -88,13 +91,15 @@
                         android:id="@+id/textView_Col_pr"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_pro"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
                         android:id="@+id/textView_Col_sf"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_sfat"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -102,6 +107,7 @@
                         android:id="@+id/textView_Col_tf"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_tfat"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -109,6 +115,7 @@
                         android:id="@+id/textView_Col_su"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_sugar"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -116,6 +123,7 @@
                         android:id="@+id/textView_Col_so"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/item_ingre_sod"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>
@@ -133,12 +141,13 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+
                         android:text="@{vm.standard}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <TextView
                         android:id="@+id/textView_S_ca"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:text="@{vm.standardCa}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -147,6 +156,7 @@
                         android:id="@+id/textView_S_en"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardEn}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -154,6 +164,7 @@
                         android:id="@+id/textView_S_fa"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardFa}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -161,13 +172,15 @@
                         android:id="@+id/textView_S_pr"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardPr}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
                         android:id="@+id/textView_S_sf"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardSF}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -175,6 +188,7 @@
                         android:id="@+id/textView_S_tf"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardTF}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -182,6 +196,7 @@
                         android:id="@+id/textView_S_su"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardSu}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -189,6 +204,7 @@
                         android:id="@+id/textView_S_so"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.standardSo}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -213,8 +229,9 @@
 
                     <TextView
                         android:id="@+id/textView_T_ca"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalCa}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -222,6 +239,7 @@
                         android:id="@+id/textView_T_en"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalEn}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -229,6 +247,7 @@
                         android:id="@+id/textView_T_fa"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalFa}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -236,13 +255,15 @@
                         android:id="@+id/textView_T_pr"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalPr}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <TextView
                         android:id="@+id/textView_T_sf"
-                        android:layout_width="100dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalSF}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -250,6 +271,7 @@
                         android:id="@+id/textView_T_tf"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalTF}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
@@ -264,6 +286,7 @@
                         android:id="@+id/textView_T_so"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
                         android:text="@{vm.totalSo}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>

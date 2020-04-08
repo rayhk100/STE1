@@ -186,7 +186,18 @@ class detailItemFragment : Fragment() {
 
                         detailItemViewModel.productnu.value =
                             querySnapshot?.documents?.map { item ->
-                                "${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
+                                when (item.id){
+                                    "S fat"-> "Saturated fat 飽和脂肪: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "T fat"-> "Trans fat 反式脂肪: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "carbo"-> "Carbohydrate 碳水化合物: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "energy"->"${item.id} 熱量: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "fat"->"Total fat 脂肪總量: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "protein"->"${item.id} 蛋白質: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "sodium"->"${item.id} 鈉: ${item.getLong("value")} ${item.getString("unit")}"
+                                    "sugar"->"${item.id} 糖: ${item.getLong("value")} ${item.getString("unit")}"
+
+                                    else->"${item.id}: ${item.getLong("value")} ${item.getString("unit")}"
+                                }
                                 // Log.d("HomeFragment",item.id)
 
                             }?.joinToString(", \n")

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
 
 import com.example.ste1.R
@@ -46,6 +47,7 @@ class ProfileFragment : Fragment() {
 
             if (!FirebaseAuth.getInstance().currentUser?.photoUrl.toString().isNullOrEmpty()) {
                 avatar.value = FirebaseAuth.getInstance().currentUser?.photoUrl.toString()
+                binding.profileAvatar.setImageURI(FirebaseAuth.getInstance().currentUser?.photoUrl)
                 displayName.value = FirebaseAuth.getInstance().currentUser?.displayName
                 email.value = FirebaseAuth.getInstance().currentUser?.email
                  db.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -53,10 +55,20 @@ class ProfileFragment : Fragment() {
                      weight.value=documentSnapshot?.get("weight")?.toString()
                      height.value=documentSnapshot?.get("height")?.toString()
                      sex.value=documentSnapshot?.get("sex")?.toString()
-                     Log.d("Profile ",avatar.value)
+                     Log.d("Profile ",avatar.value!!.toUri().toString())
                  }
 
 
+            }else{
+                displayName.value = FirebaseAuth.getInstance().currentUser?.displayName
+                email.value = FirebaseAuth.getInstance().currentUser?.email
+                db.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                    age.value=documentSnapshot?.get("age")?.toString()
+                    weight.value=documentSnapshot?.get("weight")?.toString()
+                    height.value=documentSnapshot?.get("height")?.toString()
+                    sex.value=documentSnapshot?.get("sex")?.toString()
+//                    Log.d("Profile ",avatar.value!!.toUri().toString())
+                }
             }
         }
         binding.profileUpdate.setOnClickListener{view->

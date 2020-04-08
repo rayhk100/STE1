@@ -42,14 +42,14 @@
     <string name="add_new_item">add item</string>
     <string name="item_name">Item name</string>
     <string name="item_ingre">Item ingredient</string>
-    <string name="item_ingre_ene">energy (kcal)</string>
-    <string name="item_ingre_pro">Protein (g)</string>
-    <string name="item_ingre_fat">fat (g)</string>
-    <string name="item_ingre_sfat">S fat (g)</string>
-    <string name="item_ingre_tfat">T fat (g)</string>
-    <string name="item_ingre_carbo">carbo (g)</string>
-    <string name="item_ingre_sugar">Sugar (g)</string>
-    <string name="item_ingre_sod">Sodium (mg)</string>
+    <string name="item_ingre_ene">Energy \n 熱量 (kcal)</string>
+    <string name="item_ingre_pro">Protein \n 蛋白質(g)</string>
+    <string name="item_ingre_fat">Total fat \n 脂肪 (g)</string>
+    <string name="item_ingre_sfat">Saturated fat \n 飽和脂肪 (g)</string>
+    <string name="item_ingre_tfat">Trans fat \n 反式脂肪 (g)</string>
+    <string name="item_ingre_carbo">Carbohydrate \n碳水化合物 (g)</string>
+    <string name="item_ingre_sugar">Sugar \n 糖 (g)</string>
+    <string name="item_ingre_sod">Sodium \n 鈉 (mg)</string>
 
     <string name="item_nutri">Item nutrition</string>
     <string name="item_code">Item barcode</string>
