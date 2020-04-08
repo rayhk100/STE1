@@ -15,7 +15,7 @@
     <string name="menu_send">Send</string>
 
     <string name="menu_scan">Scan</string>
-    <string name="menu_list">Lists</string>
+    <string name="menu_list">List</string>
     <string name="menu_additem">Add item</string>
     <string name="menu_detail">Item Detail</string>
 
@@ -54,7 +54,7 @@
     <string name="item_nutri">Item nutrition</string>
     <string name="item_code">Item barcode</string>
 
-    <string name="menu_chart">Analysis chart</string>
+    <string name="menu_chart">Chart</string>
 
     <string-array name="list_ingr">
         <item>Water</item>

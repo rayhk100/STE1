@@ -201,7 +201,7 @@ class ListFragment : Fragment() {
                else if (sex=="F"){
                    viewModel.standardEn.value=(1.375*(weight.toDouble()*10+height.toDouble()*6.25-age.toDouble()*5-161)).roundTo(0).toString()
                }
-
+               viewModel.standard.value="Standard: "
                viewModel.standardPr.value = (0.83*weight.toDouble()).roundTo(0).toString()
                viewModel.standardTF.value = (0.01*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()
                viewModel.standardSF.value = (0.1*viewModel.standardEn.value?.toDouble()!!).roundTo(0).toString()

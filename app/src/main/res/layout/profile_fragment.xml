@@ -18,7 +18,7 @@
             app:imageSrc="@{vm.avatar}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@drawable/avatar" />
 
         <TextView  android:id="@+id/profile_display_name"
             android:layout_width="0dp"

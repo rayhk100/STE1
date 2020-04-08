@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
                      weight.value=documentSnapshot?.get("weight")?.toString()
                      height.value=documentSnapshot?.get("height")?.toString()
                      sex.value=documentSnapshot?.get("sex")?.toString()
-                     Log.d("Profile ",sex.value)
+                     Log.d("Profile ",avatar.value)
                  }
 
 

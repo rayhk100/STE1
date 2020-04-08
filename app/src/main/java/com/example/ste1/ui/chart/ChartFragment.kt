@@ -193,6 +193,7 @@ class ChartFragment : Fragment() {
                        }
                    }
 
+
                    goal=(progress*30)
 
 
