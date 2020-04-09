@@ -1,5 +1,7 @@
 package com.example.ste1.ui.profile
 
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +11,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
+import coil.api.load
 
 import com.example.ste1.R
 import com.example.ste1.databinding.ProfileFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.profile_fragment.*
 
 class ProfileFragment : Fragment() {
@@ -25,6 +30,7 @@ class ProfileFragment : Fragment() {
     }
 
     private lateinit var binding: ProfileFragmentBinding
+    val REQUEST_GALLERY_CODE = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,8 +52,11 @@ class ProfileFragment : Fragment() {
             val db = FirebaseFirestore.getInstance().collection("User").document(FirebaseAuth.getInstance().currentUser?.uid.toString())
 
             if (!FirebaseAuth.getInstance().currentUser?.photoUrl.toString().isNullOrEmpty()) {
-                avatar.value = FirebaseAuth.getInstance().currentUser?.photoUrl.toString()
-                binding.profileAvatar.setImageURI(FirebaseAuth.getInstance().currentUser?.photoUrl)
+                val avatarImg=FirebaseAuth.getInstance().currentUser?.photoUrl
+                avatar.value = avatarImg.toString()
+//                avatar.value =R.drawable.avatar.toString()
+                binding.profileAvatar.load(avatarImg)
+//                binding.profileAvatar.setImageURI(avatarImg)
                 displayName.value = FirebaseAuth.getInstance().currentUser?.displayName
                 email.value = FirebaseAuth.getInstance().currentUser?.email
                  db.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -88,6 +97,8 @@ class ProfileFragment : Fragment() {
                 }
 
 
+
+
                 val data= hashMapOf<String, Any>(
                 "age" to age?.value!!.toInt(),
                 "weight" to weight?.value!!.toDouble(),
@@ -100,14 +111,47 @@ class ProfileFragment : Fragment() {
                             .setAction("Action", null).show()
                     }
 
+
+
+                val req = UserProfileChangeRequest.Builder().setDisplayName(displayName.value)
+                FirebaseStorage.getInstance().getReference("${email?.value}/avatar.png").putFile(
+                    Uri.parse(avatar.value)).addOnSuccessListener { task ->
+                    FirebaseStorage.getInstance().getReference("${email?.value}/avatar.png").downloadUrl.addOnSuccessListener { downloadUri ->
+                        FirebaseAuth.getInstance().currentUser?.updateProfile(req.setPhotoUri(downloadUri).build())
+                    }
+                }
+
             }
 
+
+        }
+        binding.profileSelectAvatar.setOnClickListener { view ->
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+//            Log.d("Sign_up"," on click")
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), REQUEST_GALLERY_CODE)
 
         }
 
         binding.profileLogout.setOnClickListener { view ->
             FirebaseAuth.getInstance().signOut()
             findNavController().navigate(R.id.nav_home)
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode) {
+            REQUEST_GALLERY_CODE -> {
+                data?.data?.let { uri ->
+                    Log.d("Sign_up",uri.toString())
+                    binding.profileAvatar.setImageURI(uri)
+//                    binding.signupAvatar.load(R.drawable.avatar)
+//                    Log.d("Sign_up",binding.signupAvatar.load(uri).isDisposed().toString())
+                    binding.vm?.avatar?.value = uri.toString()
+                }
+            }
         }
     }
     fun Double.roundTo(n: Int):Double{
