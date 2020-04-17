@@ -60,12 +60,25 @@
         <item>Water</item>
         <item>Egg</item>
         <item>Sugar</item>
+        <item>Oil</item>
+        <item>Rock sugar</item>
         <item>Milk</item>
+        <item>Mile Solid</item>
         <item>Juice</item>
         <item>Extract</item>
         <item>Flavouring</item>
         <item>Acidity regulator</item>
-        <item>sweetener</item>
+        <item>Sweetener</item>
+        <item>Regulator</item>
+        <item>Salt</item>
+        <item>Vitamin Niacinamide</item>
+        <item>Vitamin Calcium-D-Pantothenate</item>
+        <item>Vitamin A</item>
+        <item>Vitamin B1</item>
+        <item>Vitamin B2</item>
+        <item>Vitamin B6</item>
+        <item>Thickener</item>
+        <item>Antioxidant</item>
     </string-array>
 
     <string name="dialog_prob">Problem Report: please check the issue</string>

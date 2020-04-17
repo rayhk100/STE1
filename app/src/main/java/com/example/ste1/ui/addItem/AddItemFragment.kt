@@ -98,8 +98,7 @@ class AddItemFragment : Fragment() {
                         )
                             .setAction("Action", null).show()
                     }
-                    }else if(!vm?.quan?.value!!.isNullOrEmpty()&&binding.checkBox100mL.isChecked) {
-                    if (vm?.quan?.value!!.toDouble()<=10) {
+                    else  if (vm?.quan?.value!!.toDouble()<=10) {
                         Snackbar.make(
                             view,
                             "Qantity at least 10mL.",
@@ -107,6 +106,147 @@ class AddItemFragment : Fragment() {
                         )
                             .setAction("Action", null).show()
                     }
+                    else Log.d("addItemFragment", "adding")
+                    val db = FirebaseFirestore.getInstance()
+                    val pathdoc =vm?.code?.value.toString()
+                    val ingrelist = vm?.ingre?.value!!.split(", ").map { it.trim() }.filter { it != "" }
+                    val data = hashMapOf("name" to vm?.name?.value,
+
+//                        "ingre" to vm?.ingre?.value
+                        "ingre" to ingrelist
+
+                    )
+//                    if(!vm?.quan?.value.isNullOrEmpty()){
+                        val quanP=vm?.quan?.value!!.toDouble()
+
+
+                        vm?.nutri_energy?.value=(vm?.nutri_energy?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+//                        Log.d(TAG+"_dem: ",vm?.nutri_energy?.value)
+                        vm?.nutri_carbo?.value=(vm?.nutri_carbo?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_fat?.value=(vm?.nutri_fat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_protein?.value=(vm?.nutri_protein?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sfat?.value=(vm?.nutri_sfat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_tfat?.value=(vm?.nutri_tfat?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sugar?.value=(vm?.nutri_sugar?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+                        vm?.nutri_sodium?.value=(vm?.nutri_sodium?.value!!.toDouble().roundTo(1)*(quanP)/100).roundTo(1).toString()
+
+//                    }
+                    val dataer =hashMapOf(
+                        "value" to  vm?.nutri_energy?.value!!.toDouble(),
+                        "unit" to "kcal"
+                    )
+
+                    val datapr =hashMapOf(
+                        "value" to  vm?.nutri_protein?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val datafa =hashMapOf(
+                        "value" to  vm?.nutri_fat?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val datasf =hashMapOf(
+                        "value" to  vm?.nutri_sfat?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val datatf =hashMapOf(
+                        "value" to  vm?.nutri_tfat?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val dataca =hashMapOf(
+                        "value" to  vm?.nutri_carbo?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val datasu =hashMapOf(
+                        "value" to  vm?.nutri_sugar?.value!!.toDouble(),
+                        "unit" to "g"
+                    )
+                    val dataso =hashMapOf(
+                        "value" to  vm?.nutri_sodium?.value!!.toDouble(),
+                        "unit" to "mg"
+                    )
+
+
+
+                    db.collection("Product1").document(pathdoc).addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+                        if(documentSnapshot?.exists()!!){
+                            Log.d("addItemFragment", "adding existing data")
+
+//                            Snackbar.make(
+//                                view,
+//                                "Product exists.",
+//                                Snackbar.LENGTH_LONG
+//                            )
+//                                .setAction("Action", null).show()
+
+//                            db.collection("Product1").document(pathdoc).set(data)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("energy").update(dataer)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("protein").update(datapr)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("fat").update(datafa)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("S fat").update(datasf)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("T fat").update(datatf)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("carbo").update(dataca)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sugar").update(datasu)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sodium").update(dataso)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
+
+                        }else{
+                            Log.d("addItemFragment", "add")
+                            db.collection("Product1").document(pathdoc).set(data)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("energy").set(dataer)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("protein").set(datapr)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("fat").set(datafa)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("S fat").set(datasf)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("T fat").set(datatf)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("carbo").set(dataca)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sugar").set(datasu)
+                            db.collection("Product1").document(pathdoc)
+                                .collection("nutri").document("sodium").set(dataso)
+
+                            Snackbar.make(
+                                view,
+                                "New item record created, thank you.",
+                                Snackbar.LENGTH_LONG
+                            )
+                                .setAction("Action", null).show()
+                        }
+                    }
+
+
+
+
+
+//                docRef.addSnapshotListener { snapshot, e ->
+//                    if (e != null) {
+//                        Log.w(TAG, "Listen failed.", e)
+//                        return@addSnapshotListener
+//                    }
+//
+//                }
+                    // TODO: Use the ViewModel
+
+                    findNavController().navigate(AddItemFragmentDirections.actionNavAddnewitemToNavHome())
                 }
 
 
@@ -123,7 +263,6 @@ class AddItemFragment : Fragment() {
                         "ingre" to ingrelist
 
                         )
-
                     if(!vm?.quan?.value.isNullOrEmpty()){
                         val quanP=vm?.quan?.value!!.toDouble()
 
@@ -192,23 +331,23 @@ class AddItemFragment : Fragment() {
 //                            )
 //                                .setAction("Action", null).show()
 
-                            db.collection("Product1").document(pathdoc).set(data)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("energy").update(dataer)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("protein").update(datapr)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("fat").update(datafa)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("S fat").update(datasf)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("T fat").update(datatf)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("carbo").update(dataca)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("sugar").update(datasu)
-                            db.collection("Product1").document(pathdoc)
-                                .collection("nutri").document("sodium").update(dataso)
+//                            db.collection("Product1").document(pathdoc).set(data)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("energy").update(dataer)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("protein").update(datapr)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("fat").update(datafa)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("S fat").update(datasf)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("T fat").update(datatf)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("carbo").update(dataca)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sugar").update(datasu)
+//                            db.collection("Product1").document(pathdoc)
+//                                .collection("nutri").document("sodium").update(dataso)
 //                            db.collection("Product1").document(pathdoc)
 //                                .collection("nutri").document("sodium").set(dataso, SetOptions.merge())
 
